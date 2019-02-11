@@ -17,7 +17,8 @@ class HomeVC: UIViewController {
     }
     
     
-    @IBAction func btnTest(_ sender: Any) {
+    @IBAction func btnTest(_ sender: UIButton) {
+        LevelSettings.instance.current_setting = LevelSettings.instance.settings[sender.tag]!
         performSegue(withIdentifier: "testSeg", sender: nil)
     }
     
