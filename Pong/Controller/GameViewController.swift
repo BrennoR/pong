@@ -11,13 +11,22 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    
+    var freeplay = false
+    var file = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if freeplay {
+            file = "FreeplayScene"
+        } else {
+            file = "GameScene"
+        }
+        
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: file) {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 // Present the scene

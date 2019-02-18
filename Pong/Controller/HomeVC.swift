@@ -39,6 +39,10 @@ class HomeVC: UIViewController, GADBannerViewDelegate {
         adBanner1.load(request)
     }
     
+    @IBAction func freeplayBtnWasPressed(_ sender: Any) {
+        performSegue(withIdentifier: "freeplaySeg", sender: self)
+    }
+    
 
 
 }

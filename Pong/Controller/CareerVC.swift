@@ -44,10 +44,10 @@ class CareerVC: UIViewController, GADBannerViewDelegate {
     }
     
     
-    @IBAction func btnTest(_ sender: UIButton) {
+    @IBAction func lvlBtnWasPressed(_ sender: UIButton) {
         LevelSettings.instance.current_setting = LevelSettings.instance.settings[sender.tag]!
         LevelSettings.instance.currentLevel = sender.tag
-        self.performSegue(withIdentifier: "testSeg", sender: self)
+        self.performSegue(withIdentifier: "gameSeg", sender: self)
     }
     
     @IBAction func backBtnWasPressed(_ sender: Any) {
