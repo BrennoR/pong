@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE0C8894DF20FD1E94DEBB32 /* Pods_Pong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD123FA7D8CB7DE145923AF /* Pods_Pong.framework */; };
 		B44C8712221135DF0051CF43 /* LevelSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44C8711221135DF0051CF43 /* LevelSettings.swift */; };
 		B44E5F7621CF67E500F57EF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5F7521CF67E500F57EF1 /* AppDelegate.swift */; };
 		B44E5F7821CF67E500F57EF1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F7721CF67E500F57EF1 /* GameScene.sks */; };
@@ -16,10 +17,24 @@
 		B44E5F8121CF67E500F57EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F7F21CF67E500F57EF1 /* Main.storyboard */; };
 		B44E5F8321CF67E600F57EF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F8221CF67E600F57EF1 /* Assets.xcassets */; };
 		B44E5F8621CF67E600F57EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F8421CF67E600F57EF1 /* LaunchScreen.storyboard */; };
-		B49E299421FD18A300467208 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49E299321FD18A300467208 /* HomeVC.swift */; };
+		B49E299421FD18A300467208 /* CareerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49E299321FD18A300467208 /* CareerVC.swift */; };
+		B4D3A25D2217E82100554651 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D3A25C2217E82100554651 /* BorderButton.swift */; };
+		B4D3A25F2218A86900554651 /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D3A25E2218A86900554651 /* GradientLayer.swift */; };
+		B4E5D48E2218AC6A006BF1AE /* RoundedShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */; };
+		B4E5D4902218B093006BF1AE /* GameOverPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D48F2218B093006BF1AE /* GameOverPopUpVC.swift */; };
+		B4E5D4922218BFA0006BF1AE /* GameOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B4E5D4912218BFA0006BF1AE /* GameOverScene.sks */; };
+		B4E5D4942218C08F006BF1AE /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D4932218C08F006BF1AE /* GameOverScene.swift */; };
+		B4E5D4992218D278006BF1AE /* ColorPaletteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */; };
+		B4E5D49B2218D310006BF1AE /* colorPaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D49A2218D310006BF1AE /* colorPaletteCell.swift */; };
+		B4E5D49D2218D4D0006BF1AE /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D49C2218D4D0006BF1AE /* SettingsVC.swift */; };
+		B4E5D49F2218D8DC006BF1AE /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D49E2218D8DC006BF1AE /* UserDefaultsExtension.swift */; };
+		B4E5D4A12218DAF0006BF1AE /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D4A02218DAF0006BF1AE /* HomeVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0BF6A29CBFF9D9D40B80D504 /* Pods-Pong.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pong.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pong/Pods-Pong.release.xcconfig"; sourceTree = "<group>"; };
+		4AD123FA7D8CB7DE145923AF /* Pods_Pong.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pong.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		80C3352CD8A089E23B63EBF1 /* Pods-Pong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pong.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pong/Pods-Pong.debug.xcconfig"; sourceTree = "<group>"; };
 		B44C8711221135DF0051CF43 /* LevelSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSettings.swift; sourceTree = "<group>"; };
 		B44E5F7221CF67E500F57EF1 /* Pong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44E5F7521CF67E500F57EF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -31,7 +46,18 @@
 		B44E5F8221CF67E600F57EF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B44E5F8521CF67E600F57EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B44E5F8721CF67E600F57EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B49E299321FD18A300467208 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		B49E299321FD18A300467208 /* CareerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerVC.swift; sourceTree = "<group>"; };
+		B4D3A25C2217E82100554651 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
+		B4D3A25E2218A86900554651 /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
+		B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowButton.swift; sourceTree = "<group>"; };
+		B4E5D48F2218B093006BF1AE /* GameOverPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPopUpVC.swift; sourceTree = "<group>"; };
+		B4E5D4912218BFA0006BF1AE /* GameOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverScene.sks; sourceTree = "<group>"; };
+		B4E5D4932218C08F006BF1AE /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteVC.swift; sourceTree = "<group>"; };
+		B4E5D49A2218D310006BF1AE /* colorPaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorPaletteCell.swift; sourceTree = "<group>"; };
+		B4E5D49C2218D4D0006BF1AE /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		B4E5D49E2218D8DC006BF1AE /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		B4E5D4A02218DAF0006BF1AE /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,17 +65,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE0C8894DF20FD1E94DEBB32 /* Pods_Pong.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4799914AF174267B73CAAE63 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4AD123FA7D8CB7DE145923AF /* Pods_Pong.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B44E5F6921CF67E500F57EF1 = {
 			isa = PBXGroup;
 			children = (
 				B44E5F7421CF67E500F57EF1 /* Pong */,
 				B44E5F7321CF67E500F57EF1 /* Products */,
+				CA4C3EBF0EE103E1315B9962 /* Pods */,
+				4799914AF174267B73CAAE63 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,9 +104,8 @@
 				B49E299021FD187200467208 /* Model */,
 				B49E299121FD187A00467208 /* View */,
 				B49E299221FD187E00467208 /* Controller */,
-				B44E5F7721CF67E500F57EF1 /* GameScene.sks */,
+				B4E5D4952218C0AD006BF1AE /* Scenes */,
 				B44E5F7921CF67E500F57EF1 /* Actions.sks */,
-				B44E5F7B21CF67E500F57EF1 /* GameScene.swift */,
 				B44E5F7521CF67E500F57EF1 /* AppDelegate.swift */,
 				B44E5F7F21CF67E500F57EF1 /* Main.storyboard */,
 				B44E5F8221CF67E600F57EF1 /* Assets.xcassets */,
@@ -83,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				B44C8711221135DF0051CF43 /* LevelSettings.swift */,
+				B4E5D49E2218D8DC006BF1AE /* UserDefaultsExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -90,6 +127,10 @@
 		B49E299121FD187A00467208 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B4D3A25C2217E82100554651 /* BorderButton.swift */,
+				B4D3A25E2218A86900554651 /* GradientLayer.swift */,
+				B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */,
+				B4E5D49A2218D310006BF1AE /* colorPaletteCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -98,9 +139,33 @@
 			isa = PBXGroup;
 			children = (
 				B44E5F7D21CF67E500F57EF1 /* GameViewController.swift */,
-				B49E299321FD18A300467208 /* HomeVC.swift */,
+				B49E299321FD18A300467208 /* CareerVC.swift */,
+				B4E5D48F2218B093006BF1AE /* GameOverPopUpVC.swift */,
+				B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */,
+				B4E5D49C2218D4D0006BF1AE /* SettingsVC.swift */,
+				B4E5D4A02218DAF0006BF1AE /* HomeVC.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		B4E5D4952218C0AD006BF1AE /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				B44E5F7721CF67E500F57EF1 /* GameScene.sks */,
+				B44E5F7B21CF67E500F57EF1 /* GameScene.swift */,
+				B4E5D4912218BFA0006BF1AE /* GameOverScene.sks */,
+				B4E5D4932218C08F006BF1AE /* GameOverScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		CA4C3EBF0EE103E1315B9962 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80C3352CD8A089E23B63EBF1 /* Pods-Pong.debug.xcconfig */,
+				0BF6A29CBFF9D9D40B80D504 /* Pods-Pong.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -110,6 +175,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B44E5F8A21CF67E600F57EF1 /* Build configuration list for PBXNativeTarget "Pong" */;
 			buildPhases = (
+				69BE6D9E64BC8A078C5519B3 /* [CP] Check Pods Manifest.lock */,
 				B44E5F6E21CF67E500F57EF1 /* Sources */,
 				B44E5F6F21CF67E500F57EF1 /* Frameworks */,
 				B44E5F7021CF67E500F57EF1 /* Resources */,
@@ -165,22 +231,54 @@
 				B44E5F7821CF67E500F57EF1 /* GameScene.sks in Resources */,
 				B44E5F8321CF67E600F57EF1 /* Assets.xcassets in Resources */,
 				B44E5F8621CF67E600F57EF1 /* LaunchScreen.storyboard in Resources */,
+				B4E5D4922218BFA0006BF1AE /* GameOverScene.sks in Resources */,
 				B44E5F7A21CF67E500F57EF1 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		69BE6D9E64BC8A078C5519B3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pong-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B44E5F6E21CF67E500F57EF1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4E5D49D2218D4D0006BF1AE /* SettingsVC.swift in Sources */,
+				B4E5D4942218C08F006BF1AE /* GameOverScene.swift in Sources */,
+				B4E5D4902218B093006BF1AE /* GameOverPopUpVC.swift in Sources */,
 				B44E5F7C21CF67E500F57EF1 /* GameScene.swift in Sources */,
-				B49E299421FD18A300467208 /* HomeVC.swift in Sources */,
+				B49E299421FD18A300467208 /* CareerVC.swift in Sources */,
+				B4D3A25F2218A86900554651 /* GradientLayer.swift in Sources */,
+				B4E5D4A12218DAF0006BF1AE /* HomeVC.swift in Sources */,
 				B44E5F7E21CF67E500F57EF1 /* GameViewController.swift in Sources */,
 				B44C8712221135DF0051CF43 /* LevelSettings.swift in Sources */,
 				B44E5F7621CF67E500F57EF1 /* AppDelegate.swift in Sources */,
+				B4E5D4992218D278006BF1AE /* ColorPaletteVC.swift in Sources */,
+				B4D3A25D2217E82100554651 /* BorderButton.swift in Sources */,
+				B4E5D48E2218AC6A006BF1AE /* RoundedShadowButton.swift in Sources */,
+				B4E5D49F2218D8DC006BF1AE /* UserDefaultsExtension.swift in Sources */,
+				B4E5D49B2218D310006BF1AE /* colorPaletteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,11 +422,14 @@
 		};
 		B44E5F8B21CF67E600F57EF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80C3352CD8A089E23B63EBF1 /* Pods-Pong.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E34J4LB4TF;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Pong/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -342,11 +443,14 @@
 		};
 		B44E5F8C21CF67E600F57EF1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BF6A29CBFF9D9D40B80D504 /* Pods-Pong.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E34J4LB4TF;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Pong/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
