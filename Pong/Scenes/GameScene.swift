@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var ball = SKSpriteNode()
     var mainPaddle = SKSpriteNode()
@@ -34,6 +34,9 @@ class GameScene: SKScene {
     var availableLevelIndex = UserDefaults.standard.integer(forKey: "availableLevelIndex")
     
     override func didMove(to view: SKView) {
+        
+        physicsWorld.contactDelegate = self
+        
         ball = self.childNode(withName: "ball") as! SKSpriteNode
         mainPaddle = self.childNode(withName: "mainPaddle") as! SKSpriteNode
         enemyPaddle = self.childNode(withName: "enemyPaddle") as! SKSpriteNode
@@ -45,6 +48,9 @@ class GameScene: SKScene {
         }
         
         mainPaddle.color = UserDefaults.standard.colorForKey(key: "paddleColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        
+        
         enemyPaddle.color = UserDefaults.standard.colorForKey(key: "enemyPaddleColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         ball.color = UserDefaults.standard.colorForKey(key: "ballColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.backgroundColor = UserDefaults.standard.colorForKey(key: "backgroundTheme") ?? #colorLiteral(red: 0.1490196139, green: 0.1490196139, blue: 0.1490196139, alpha: 1)
@@ -57,6 +63,15 @@ class GameScene: SKScene {
         
         self.physicsBody = border
 
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        if contact.bodyA.collisionBitMask == 2 || contact.bodyB.collisionBitMask == 2 {
+            ball.physicsBody?.applyImpulse(CGVector(dx: velocity, dy: velocity))
+//            ball.physicsBody?.
+        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
