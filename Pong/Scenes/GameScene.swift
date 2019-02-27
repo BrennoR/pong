@@ -46,11 +46,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for i in 1...3 {
             hearts.append(self.childNode(withName: "heart\(i)") as! SKSpriteNode)
         }
-        
+
         mainPaddle.color = UserDefaults.standard.colorForKey(key: "paddleColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        
-        
         enemyPaddle.color = UserDefaults.standard.colorForKey(key: "enemyPaddleColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         ball.color = UserDefaults.standard.colorForKey(key: "ballColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.backgroundColor = UserDefaults.standard.colorForKey(key: "backgroundTheme") ?? #colorLiteral(red: 0.1490196139, green: 0.1490196139, blue: 0.1490196139, alpha: 1)
@@ -67,9 +64,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         
+        let w = mainPaddle.frame.width
+        let rightOfPaddle = mainPaddle.position.x + w / 2
+        let dist = rightOfPaddle - ball.position.x
+        let rightOfEnemy = enemyPaddle.position.x + w / 2
+        let distEnemy = rightOfEnemy - ball.position.x
+        
+        let minAngle = CGFloat.pi*1/6
+        let maxAngle = CGFloat.pi*5/6
+        
+        let v = sqrt(pow((ball.physicsBody?.velocity.dx)!, 2) + pow((ball.physicsBody?.velocity.dy)!, 2))
+        
         if contact.bodyA.collisionBitMask == 2 || contact.bodyB.collisionBitMask == 2 {
-            ball.physicsBody?.applyImpulse(CGVector(dx: velocity, dy: velocity))
-//            ball.physicsBody?.
+            print(contact.bodyA.node?.name)
+            print(contact.bodyB.node?.name)
+            
+            if contact.bodyA.node?.name == "mainPaddle" || contact.bodyB.node?.name == "mainPaddle" {
+                let angle = minAngle + (maxAngle - minAngle) * (dist / w)
+                
+                ball.physicsBody?.velocity.dx = CGFloat(v) * cos(angle)
+                ball.physicsBody?.velocity.dy = CGFloat(v) * sin(angle)
+            }
+            
+            if contact.bodyA.node?.name == "enemyPaddle" || contact.bodyB.node?.name == "enemyPaddle" {
+                let angle = -minAngle + (-maxAngle + minAngle) * (distEnemy / w)
+                
+                ball.physicsBody?.velocity.dx = CGFloat(v) * cos(angle)
+                ball.physicsBody?.velocity.dy = CGFloat(v) * sin(angle)
+            }
+            
         }
         
     }
@@ -112,7 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             hearts[lives - 1].removeFromParent()
             lives -= 1
             let rand = Double.random(in: -1 ..< 1)
-            ball.position = CGPoint(x: enemyPaddle.position.x, y: enemyPaddle.position.y - enemyPaddle.frame.height / 2)
+            ball.position = CGPoint(x: 0, y: 0)
             ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             ball.physicsBody?.applyImpulse(CGVector(dx: -velocity * rand, dy: -velocity))
         } else if ball.position.y >= enemyPaddle.position.y + 70 {
@@ -120,7 +143,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             score += 1
             scoreLbl.text = "Score: \(score)"
             let rand = Double.random(in: -1 ..< 1)
-            ball.position = CGPoint(x: mainPaddle.position.x, y: mainPaddle.position.y + mainPaddle.frame.height / 2)
+            ball.position = CGPoint(x: 0, y: 0)
             ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             ball.physicsBody?.applyImpulse(CGVector(dx: velocity * rand, dy: velocity))
         }
