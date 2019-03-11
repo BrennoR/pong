@@ -23,13 +23,11 @@
 		B44E5F8121CF67E500F57EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F7F21CF67E500F57EF1 /* Main.storyboard */; };
 		B44E5F8321CF67E600F57EF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F8221CF67E600F57EF1 /* Assets.xcassets */; };
 		B44E5F8621CF67E600F57EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F8421CF67E600F57EF1 /* LaunchScreen.storyboard */; };
+		B452E7242235EB620032B6BA /* FTButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452E7232235EB620032B6BA /* FTButtonNode.swift */; };
 		B49E299421FD18A300467208 /* CareerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49E299321FD18A300467208 /* CareerVC.swift */; };
 		B4D3A25D2217E82100554651 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D3A25C2217E82100554651 /* BorderButton.swift */; };
 		B4D3A25F2218A86900554651 /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D3A25E2218A86900554651 /* GradientLayer.swift */; };
 		B4E5D48E2218AC6A006BF1AE /* RoundedShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */; };
-		B4E5D4902218B093006BF1AE /* GameOverPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D48F2218B093006BF1AE /* GameOverPopUpVC.swift */; };
-		B4E5D4922218BFA0006BF1AE /* GameOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B4E5D4912218BFA0006BF1AE /* GameOverScene.sks */; };
-		B4E5D4942218C08F006BF1AE /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D4932218C08F006BF1AE /* GameOverScene.swift */; };
 		B4E5D4992218D278006BF1AE /* ColorPaletteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */; };
 		B4E5D49B2218D310006BF1AE /* colorPaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D49A2218D310006BF1AE /* colorPaletteCell.swift */; };
 		B4E5D49D2218D4D0006BF1AE /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D49C2218D4D0006BF1AE /* SettingsVC.swift */; };
@@ -58,13 +56,11 @@
 		B44E5F8221CF67E600F57EF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B44E5F8521CF67E600F57EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B44E5F8721CF67E600F57EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B452E7232235EB620032B6BA /* FTButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTButtonNode.swift; sourceTree = "<group>"; };
 		B49E299321FD18A300467208 /* CareerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerVC.swift; sourceTree = "<group>"; };
 		B4D3A25C2217E82100554651 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		B4D3A25E2218A86900554651 /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowButton.swift; sourceTree = "<group>"; };
-		B4E5D48F2218B093006BF1AE /* GameOverPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPopUpVC.swift; sourceTree = "<group>"; };
-		B4E5D4912218BFA0006BF1AE /* GameOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverScene.sks; sourceTree = "<group>"; };
-		B4E5D4932218C08F006BF1AE /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteVC.swift; sourceTree = "<group>"; };
 		B4E5D49A2218D310006BF1AE /* colorPaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorPaletteCell.swift; sourceTree = "<group>"; };
 		B4E5D49C2218D4D0006BF1AE /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -133,6 +129,7 @@
 				B44C8711221135DF0051CF43 /* LevelSettings.swift */,
 				B4E5D49E2218D8DC006BF1AE /* UserDefaultsExtension.swift */,
 				B42E2652221A82DC00588251 /* FreeplaySettings.swift */,
+				B452E7232235EB620032B6BA /* FTButtonNode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -153,7 +150,6 @@
 			children = (
 				B44E5F7D21CF67E500F57EF1 /* GameViewController.swift */,
 				B49E299321FD18A300467208 /* CareerVC.swift */,
-				B4E5D48F2218B093006BF1AE /* GameOverPopUpVC.swift */,
 				B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */,
 				B4E5D49C2218D4D0006BF1AE /* SettingsVC.swift */,
 				B4E5D4A02218DAF0006BF1AE /* HomeVC.swift */,
@@ -167,8 +163,6 @@
 			children = (
 				B44E5F7721CF67E500F57EF1 /* GameScene.sks */,
 				B44E5F7B21CF67E500F57EF1 /* GameScene.swift */,
-				B4E5D4912218BFA0006BF1AE /* GameOverScene.sks */,
-				B4E5D4932218C08F006BF1AE /* GameOverScene.swift */,
 				B42E264E221A764000588251 /* FreeplayScene.sks */,
 				B42E2650221A765000588251 /* FreeplayScene.swift */,
 				B42E2656221A8B4200588251 /* FreeplayOverScene.sks */,
@@ -249,7 +243,6 @@
 				B44E5F7821CF67E500F57EF1 /* GameScene.sks in Resources */,
 				B44E5F8321CF67E600F57EF1 /* Assets.xcassets in Resources */,
 				B44E5F8621CF67E600F57EF1 /* LaunchScreen.storyboard in Resources */,
-				B4E5D4922218BFA0006BF1AE /* GameOverScene.sks in Resources */,
 				B44E5F7A21CF67E500F57EF1 /* Actions.sks in Resources */,
 				B42E2657221A8B4200588251 /* FreeplayOverScene.sks in Resources */,
 				B42E264F221A764000588251 /* FreeplayScene.sks in Resources */,
@@ -285,10 +278,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4E5D49D2218D4D0006BF1AE /* SettingsVC.swift in Sources */,
-				B4E5D4942218C08F006BF1AE /* GameOverScene.swift in Sources */,
 				B42E2659221A8B4C00588251 /* FreeplayOverScene.swift in Sources */,
-				B4E5D4902218B093006BF1AE /* GameOverPopUpVC.swift in Sources */,
 				B44E5F7C21CF67E500F57EF1 /* GameScene.swift in Sources */,
+				B452E7242235EB620032B6BA /* FTButtonNode.swift in Sources */,
 				B49E299421FD18A300467208 /* CareerVC.swift in Sources */,
 				B4D3A25F2218A86900554651 /* GradientLayer.swift in Sources */,
 				B42E2653221A82DC00588251 /* FreeplaySettings.swift in Sources */,

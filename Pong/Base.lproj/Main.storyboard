@@ -17,19 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4T-Yc-afD">
-                                <rect key="frame" x="105" y="68" width="165" height="96"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pong_bg_2" translatesAutoresizingMaskIntoConstraints="NO" id="br0-Wp-gtI">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="70"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="85u-5b-vQg">
-                                <rect key="frame" x="87.5" y="208.5" width="200" height="250"/>
+                                <rect key="frame" x="87.5" y="238.5" width="200" height="250"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAz-Cc-7Vg" customClass="BorderButton" customModule="Pong" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="66.5"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="25"/>
+                                        <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="28"/>
                                         <state key="normal" title="Career">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -39,7 +37,8 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5r8-mJ-1Bd" customClass="BorderButton" customModule="Pong" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="91.5" width="200" height="67"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="25"/>
+                                        <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="28"/>
                                         <state key="normal" title="Free Play">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -49,7 +48,8 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GW-Si-T5P" customClass="BorderButton" customModule="Pong" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="183.5" width="200" height="66.5"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="25"/>
+                                        <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="28"/>
                                         <state key="normal" title="Settings">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -71,11 +71,18 @@
                                     <constraint firstAttribute="height" constant="50" id="Ecw-a7-W3W"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4T-Yc-afD">
+                                <rect key="frame" x="93" y="46" width="183" height="107"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="78"/>
+                                <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="BAX-66-Rdd" firstAttribute="bottom" secondItem="ngO-HO-RLi" secondAttribute="bottom" id="gVW-ZY-dGf"/>
-                            <constraint firstItem="85u-5b-vQg" firstAttribute="centerY" secondItem="pMv-Kv-9o7" secondAttribute="centerY" id="sVF-nH-OuS"/>
+                            <constraint firstItem="85u-5b-vQg" firstAttribute="centerY" secondItem="pMv-Kv-9o7" secondAttribute="centerY" constant="30" id="sVF-nH-OuS"/>
                             <constraint firstItem="85u-5b-vQg" firstAttribute="centerX" secondItem="pMv-Kv-9o7" secondAttribute="centerX" id="voM-Ov-1KR"/>
                             <constraint firstItem="BAX-66-Rdd" firstAttribute="centerX" secondItem="pMv-Kv-9o7" secondAttribute="centerX" id="wpN-3n-nFP"/>
                         </constraints>
@@ -739,6 +746,7 @@
     <resources>
         <image name="Arrow" width="29" height="17"/>
         <image name="lock" width="100" height="100"/>
+        <image name="pong_bg_2" width="388" height="666"/>
         <image name="whiteBackArrow" width="45" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
