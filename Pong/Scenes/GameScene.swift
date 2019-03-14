@@ -216,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func nextLevel() {
-        if currentLevel > availableLevelIndex {
+        if currentLevel > availableLevelIndex && availableLevelIndex != 11 {
             UserDefaults.standard.set(availableLevelIndex + 1, forKey: "availableLevelIndex")
         }
         lvlCompletePopUp.isHidden = false
@@ -239,17 +239,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         retryBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(GameScene.retryBtnWasPressed))
         gameOverPopUp.addChild(retryBtn)
         
-        setupBtn(btn: quitBtn, size: CGSize(width: 70, height: 20), position: CGPoint(x: 0, y: -35), title: "Quit", name: "quitBtn")
+        setupBtn(btn: quitBtn, size: CGSize(width: 70, height: 20), position: CGPoint(x: 0, y: -26), title: "Quit", name: "quitBtn")
         quitBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(GameScene.quitBtnWasPressed))
         gameOverPopUp.addChild(quitBtn)
         
-        setupBtn(btn: nextLvlBtn, size: CGSize(width: 70, height: 20), position: CGPoint(x: 0, y: -35), title: "Next Lvl", name: "quitBtn")
+        setupBtn(btn: nextLvlBtn, size: CGSize(width: 70, height: 20), position: CGPoint(x: 0, y: -27), title: "Next Lvl", name: "nextLvlBtn")
         nextLvlBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(GameScene.nextLvlBtnWasPressed))
         lvlCompletePopUp.addChild(nextLvlBtn)
     }
     
     func setupBtn(btn: FTButtonNode, size: CGSize, position: CGPoint, title: NSString, name: String) {
-        btn.setButtonLabel(title: title, font: "Avenir", fontSize: 28, fontColor: UIColor.black)
+        btn.setButtonLabel(title: title, font: "Avenir", fontSize: 26, fontColor: UIColor.black)
         btn.label.xScale = 0.5
         btn.label.yScale = 0.5
         btn.size = size

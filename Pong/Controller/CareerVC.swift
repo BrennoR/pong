@@ -19,7 +19,7 @@ class CareerVC: UIViewController, GADBannerViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if availableLevelIndex != 12 {
+        if availableLevelIndex != 11 {
             for lvl in levelBtns[(availableLevelIndex + 1) ... 11] {
                 lvl.isEnabled = false
             }
