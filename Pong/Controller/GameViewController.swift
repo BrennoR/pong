@@ -59,6 +59,6 @@ class GameViewController: UIViewController {
     }
     
     @objc func gameOver() {
-        dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "backToHome", sender: nil)
     }
 }

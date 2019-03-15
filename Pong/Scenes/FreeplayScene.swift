@@ -17,9 +17,21 @@ class FreeplayScene: SKScene {
     var enemyPaddle = SKSpriteNode()
     var scoreLbl = SKLabelNode()
     var enemyScoreLbl = SKLabelNode()
+    
+    // pop-ups
     var popUp = SKShapeNode()
     var popUpLbl = SKLabelNode()
     var popUpScoreLbl = SKLabelNode()
+    var popUpScoreLbl2 = SKLabelNode()
+    var pausePopUp = SKShapeNode()
+    
+    // pop-up buttons
+    var pauseBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "pause_btn"), selectedTexture: SKTexture.init(imageNamed: "pause_btn"), disabledTexture: SKTexture.init(imageNamed: "pause_btn"))
+    var retryBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
+    var quitBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
+    var continueBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
+    var restartBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
+    var quitBtn2 = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
     
     // game mode
     var playerNumber = FreeplaySettings.instance.freeplayPlayerNumber
@@ -42,7 +54,8 @@ class FreeplayScene: SKScene {
     
     var velocity = 40
     
-    // enemy name
+    // names
+    var playerName = "Your Score"
     var enemyName = "Enemy"
     
     override func didMove(to view: SKView) {
@@ -55,8 +68,24 @@ class FreeplayScene: SKScene {
         popUp = self.childNode(withName: "popUp") as! SKShapeNode
         popUpLbl = popUp.childNode(withName: "popUpLbl") as! SKLabelNode
         popUpScoreLbl = popUp.childNode(withName: "popUpScoreLbl") as! SKLabelNode
+        popUpScoreLbl2 = popUp.childNode(withName: "popUpScoreLbl2") as! SKLabelNode
+        pausePopUp = self.childNode(withName: "pausePopUp") as! SKShapeNode
         
         popUp.isHidden = true
+        pausePopUp.isHidden = true
+        
+        // pause button
+        pauseBtn.size = CGSize(width: 75, height: 75)
+        pauseBtn.position = CGPoint(x: 0, y: (self.frame.height / 2) - 65)
+        print(-(self.frame.height / 2) + 200)
+        pauseBtn.zPosition = 4
+        pauseBtn.name = "pauseBtn"
+        pauseBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.pauseBtnWasPressed))
+        self.addChild(pauseBtn)
+        
+        // quit and retry buttons
+        setupPopUpBtns()
+        
         
         ball.physicsBody?.applyImpulse(CGVector(dx: 40, dy: 40))
         
@@ -69,6 +98,7 @@ class FreeplayScene: SKScene {
         // remove enemy label
         if playerNumber == 2 {
 //            enemyScoreLbl.removeFromParent()
+            playerName = "Player 1"
             enemyName = "Player 2"
         }
         
@@ -114,6 +144,53 @@ class FreeplayScene: SKScene {
         }
     }
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        let w = mainPaddle.frame.width
+        let rightOfPaddle = mainPaddle.position.x + w / 2
+        let dist = rightOfPaddle - ball.position.x
+        let rightOfEnemy = enemyPaddle.position.x + w / 2
+        let distEnemy = rightOfEnemy - ball.position.x
+        
+        let minAngle = CGFloat.pi*1/6
+        let maxAngle = CGFloat.pi*5/6
+        
+        var v = sqrt(pow((ball.physicsBody?.velocity.dx)!, 2) + pow((ball.physicsBody?.velocity.dy)!, 2))
+        
+        if serving == true {
+            v *= 2
+            serving = false
+        }
+        
+        if contact.bodyA.collisionBitMask == 2 || contact.bodyB.collisionBitMask == 2 {
+            print(contact.bodyA.node?.name)
+            print(contact.bodyB.node?.name)
+            
+            // contact with main paddle
+            if contact.bodyA.node?.name == "mainPaddle" || contact.bodyB.node?.name == "mainPaddle" {
+                
+                if ball.position.y > mainPaddle.position.y + 15 {
+                    let angle = minAngle + (maxAngle - minAngle) * (dist / w)
+                    
+                    ball.physicsBody?.velocity.dx = CGFloat(v) * cos(angle)
+                    ball.physicsBody?.velocity.dy = CGFloat(v) * sin(angle)
+                }
+            }
+            
+            // contact with enemy paddle
+            if contact.bodyA.node?.name == "enemyPaddle" || contact.bodyB.node?.name == "enemyPaddle" {
+                if ball.position.y < enemyPaddle.position.y - 15 {
+                    let angle = -minAngle + (-maxAngle + minAngle) * (distEnemy / w)
+                    
+                    ball.physicsBody?.velocity.dx = CGFloat(v) * cos(angle)
+                    ball.physicsBody?.velocity.dy = CGFloat(v) * sin(angle)
+                }
+            }
+            
+        }
+        
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         
         if playerNumber == 1 {
@@ -152,7 +229,11 @@ class FreeplayScene: SKScene {
         
         if lives <  1 {
             gameOver()
-            popUpLbl.text = "\(enemyName) Wins"
+            if playerNumber == 1 {
+                popUpLbl.text = "Game Over"
+            } else {
+                popUpLbl.text = "\(enemyName) Wins"
+            }
         } else if enemyLives < 1 {
             gameOver()
             popUpLbl.text = "Player 1 Wins"
@@ -176,10 +257,66 @@ class FreeplayScene: SKScene {
         }
     }
     
-    func gameOver() {
+    func setupPopUpBtns() {
+        setupBtn(btn: retryBtn, size: CGSize(width: 60, height: 17), position: CGPoint(x: 0, y: -12), title: "Retry", name: "retryBtn")
+        retryBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.retryBtnWasPressed))
+        popUp.addChild(retryBtn)
+        
+        setupBtn(btn: quitBtn, size: CGSize(width: 60, height: 17), position: CGPoint(x: 0, y: -35), title: "Quit", name: "quitBtn")
+        quitBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.quitBtnWasPressed))
+        popUp.addChild(quitBtn)
+        
+        setupBtn(btn: continueBtn, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: 15), title: "Continue", name: "continueBtn")
+        continueBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.continueBtnWasPressed))
+        pausePopUp.addChild(continueBtn)
+        
+        setupBtn(btn: restartBtn, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: -10), title: "Restart", name: "restartBtn")
+        restartBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.retryBtnWasPressed))
+        pausePopUp.addChild(restartBtn)
+        
+        setupBtn(btn: quitBtn2, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: -35), title: "Quit", name: "quitBtn2")
+        quitBtn2.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.quitBtnWasPressed))
+        pausePopUp.addChild(quitBtn2)
+    }
+    
+    func setupBtn(btn: FTButtonNode, size: CGSize, position: CGPoint, title: NSString, name: String) {
+        btn.setButtonLabel(title: title, font: "Avenir", fontSize: 26, fontColor: UIColor.black)
+        btn.label.xScale = 0.5
+        btn.label.yScale = 0.5
+        btn.size = size
+        btn.position = position
+        btn.zPosition = 4
+        btn.name = name
+    }
+    
+    @objc func pauseBtnWasPressed() {
         physicsWorld.speed = 0
-        popUpScoreLbl.text = "Player 1: \(score)\n\(enemyName): \(enemyScore)"
+        pausePopUp.isHidden = false
+    }
+    
+    @objc func gameOver() {
+        physicsWorld.speed = 0
+        popUpScoreLbl.text = "\(playerName): \(score)"
+        popUpScoreLbl2.text = "\(enemyName): \(enemyScore)"
         popUp.isHidden = false
+//        pausePopUp.removeFromParent()
+        pauseBtn.isEnabled = false
+    }
+    
+    @objc func continueBtnWasPressed() {
+        physicsWorld.speed = 1
+        pausePopUp.isHidden = true
+    }
+    
+    @objc func retryBtnWasPressed() {
+        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+        let gameScene = SKScene(fileNamed: "FreeplayScene")!
+        gameScene.scaleMode = .aspectFill
+        self.view?.presentScene(gameScene, transition: reveal)
+    }
+    
+    @objc func quitBtnWasPressed() {
+        NotificationCenter.default.post(name: NSNotification.Name("gameOver"), object: nil)
     }
     
 }

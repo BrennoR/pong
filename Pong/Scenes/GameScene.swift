@@ -10,6 +10,9 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    // reload buttons delegate
+    
 
     // nodes
     var ball = SKSpriteNode()
@@ -216,7 +219,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func nextLevel() {
-        if currentLevel > availableLevelIndex && availableLevelIndex != 11 {
+        if currentLevel > availableLevelIndex && availableLevelIndex < 11 {
             UserDefaults.standard.set(availableLevelIndex + 1, forKey: "availableLevelIndex")
         }
         lvlCompletePopUp.isHidden = false
@@ -225,8 +228,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
+        lvlCompletePopUp.removeFromParent()
         gameOverPopUp.isHidden = false
-        
         physicsWorld.speed = 0
     }
     
@@ -270,7 +273,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func nextLvlBtnWasPressed() {
-        LevelSettings.instance.currentLevel = currentLevel + 1
+        if currentLevel < 12 {
+            LevelSettings.instance.currentLevel = currentLevel + 1
+            LevelSettings.instance.current_setting = LevelSettings.instance.settings[currentLevel + 1]!
+        }
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
         let gameScene = SKScene(fileNamed: "GameScene")!
         gameScene.scaleMode = .aspectFill

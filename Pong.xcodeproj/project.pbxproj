@@ -12,8 +12,6 @@
 		B42E264F221A764000588251 /* FreeplayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B42E264E221A764000588251 /* FreeplayScene.sks */; };
 		B42E2651221A765000588251 /* FreeplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E2650221A765000588251 /* FreeplayScene.swift */; };
 		B42E2653221A82DC00588251 /* FreeplaySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E2652221A82DC00588251 /* FreeplaySettings.swift */; };
-		B42E2657221A8B4200588251 /* FreeplayOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B42E2656221A8B4200588251 /* FreeplayOverScene.sks */; };
-		B42E2659221A8B4C00588251 /* FreeplayOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E2658221A8B4C00588251 /* FreeplayOverScene.swift */; };
 		B44C8712221135DF0051CF43 /* LevelSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44C8711221135DF0051CF43 /* LevelSettings.swift */; };
 		B44E5F7621CF67E500F57EF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5F7521CF67E500F57EF1 /* AppDelegate.swift */; };
 		B44E5F7821CF67E500F57EF1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F7721CF67E500F57EF1 /* GameScene.sks */; };
@@ -43,8 +41,6 @@
 		B42E264E221A764000588251 /* FreeplayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FreeplayScene.sks; sourceTree = "<group>"; };
 		B42E2650221A765000588251 /* FreeplayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeplayScene.swift; sourceTree = "<group>"; };
 		B42E2652221A82DC00588251 /* FreeplaySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeplaySettings.swift; sourceTree = "<group>"; };
-		B42E2656221A8B4200588251 /* FreeplayOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FreeplayOverScene.sks; sourceTree = "<group>"; };
-		B42E2658221A8B4C00588251 /* FreeplayOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeplayOverScene.swift; sourceTree = "<group>"; };
 		B44C8711221135DF0051CF43 /* LevelSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSettings.swift; sourceTree = "<group>"; };
 		B44E5F7221CF67E500F57EF1 /* Pong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44E5F7521CF67E500F57EF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -165,8 +161,6 @@
 				B44E5F7B21CF67E500F57EF1 /* GameScene.swift */,
 				B42E264E221A764000588251 /* FreeplayScene.sks */,
 				B42E2650221A765000588251 /* FreeplayScene.swift */,
-				B42E2656221A8B4200588251 /* FreeplayOverScene.sks */,
-				B42E2658221A8B4C00588251 /* FreeplayOverScene.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -244,7 +238,6 @@
 				B44E5F8321CF67E600F57EF1 /* Assets.xcassets in Resources */,
 				B44E5F8621CF67E600F57EF1 /* LaunchScreen.storyboard in Resources */,
 				B44E5F7A21CF67E500F57EF1 /* Actions.sks in Resources */,
-				B42E2657221A8B4200588251 /* FreeplayOverScene.sks in Resources */,
 				B42E264F221A764000588251 /* FreeplayScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,7 +271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4E5D49D2218D4D0006BF1AE /* SettingsVC.swift in Sources */,
-				B42E2659221A8B4C00588251 /* FreeplayOverScene.swift in Sources */,
 				B44E5F7C21CF67E500F57EF1 /* GameScene.swift in Sources */,
 				B452E7242235EB620032B6BA /* FTButtonNode.swift in Sources */,
 				B49E299421FD18A300467208 /* CareerVC.swift in Sources */,

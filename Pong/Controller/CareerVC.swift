@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMobileAds
 
+
 class CareerVC: UIViewController, GADBannerViewDelegate {
     
     @IBOutlet weak var adBanner2: GADBannerView!
@@ -19,11 +20,7 @@ class CareerVC: UIViewController, GADBannerViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if availableLevelIndex != 11 {
-            for lvl in levelBtns[(availableLevelIndex + 1) ... 11] {
-                lvl.isEnabled = false
-            }
-        }
+        enableBtns()
         
         // Google AdMob
         // Request
@@ -52,6 +49,14 @@ class CareerVC: UIViewController, GADBannerViewDelegate {
     
     @IBAction func backBtnWasPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func enableBtns() {
+        if availableLevelIndex != 11 {
+            for lvl in levelBtns[(availableLevelIndex + 1) ... 11] {
+                lvl.isEnabled = false
+            }
+        }
     }
     
     
