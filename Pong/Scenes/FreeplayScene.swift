@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class FreeplayScene: SKScene {
+class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     
     // nodes
     var ball = SKSpriteNode()
@@ -52,13 +52,15 @@ class FreeplayScene: SKScene {
     var score = 0
     var enemyScore = 0
     
-    var velocity = 40
+    var velocity: Float = 45.0
     
     // names
     var playerName = "Your Score"
     var enemyName = "Enemy"
     
     override func didMove(to view: SKView) {
+        
+        physicsWorld.contactDelegate = self
         // nodes
         ball = self.childNode(withName: "ball") as! SKSpriteNode
         mainPaddle = self.childNode(withName: "mainPaddle") as! SKSpriteNode
@@ -86,8 +88,12 @@ class FreeplayScene: SKScene {
         // quit and retry buttons
         setupPopUpBtns()
         
-        
-        ball.physicsBody?.applyImpulse(CGVector(dx: 40, dy: 40))
+        // serve ball
+        var rand: Float = 1.0
+        if playerNumber == 2 {
+            rand = sign(Float.random(in: -1 ... 1))
+        }
+        serve(sign: rand)
         
         // lives
         for i in 1...3 {
@@ -203,15 +209,10 @@ class FreeplayScene: SKScene {
                 hearts[lives].removeFromParent()
             }
             
-//            if playerNumber == 2 {
-                enemyScore += 1
-                enemyScoreLbl.text = "\(enemyScore)"
-//            }
+            enemyScore += 1
+            enemyScoreLbl.text = "\(enemyScore)"
             
-            let rand = Double.random(in: -1 ..< 1)
-            ball.position = CGPoint(x: mainPaddle.position.x, y: mainPaddle.position.y + mainPaddle.frame.height / 2)
-            ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            ball.physicsBody?.applyImpulse(CGVector(dx: 40 * rand, dy: 40))
+            serve(sign: 1)
             
         } else if ball.position.y >= enemyPaddle.position.y + 70 {
             score += 1
@@ -221,10 +222,12 @@ class FreeplayScene: SKScene {
                 enemyHearts[enemyLives].removeFromParent()
             }
             
-            let rand = Double.random(in: -1 ..< 1)
-            ball.position = CGPoint(x: enemyPaddle.position.x, y: enemyPaddle.position.y - enemyPaddle.frame.height / 2)
-            ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            ball.physicsBody?.applyImpulse(CGVector(dx: -40 * rand, dy: -40))
+            if playerNumber == 1 {
+                serve(sign: 1)
+            } else {
+                serve(sign: -1)
+            }
+
         }
         
         if lives <  1 {
@@ -241,11 +244,11 @@ class FreeplayScene: SKScene {
         
     }
     
-    func serve(speed: Float) {
-//        serving = true
-//        ball.position = CGPoint(x: 0, y: 0)
-//        ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-//        ball.physicsBody?.applyImpulse(CGVector(dx: 0, dy: velocity * speed))
+    func serve(sign: Float) {
+        serving = true
+        ball.position = CGPoint(x: 0, y: 0)
+        ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        ball.physicsBody?.applyImpulse(CGVector(dx: 0, dy: Int(velocity * sign * 0.5)))
     }
     
     // paddle movement 

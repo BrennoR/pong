@@ -8,12 +8,10 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    // reload buttons delegate
-    
-
     // nodes
     var ball = SKSpriteNode()
     var mainPaddle = SKSpriteNode()
@@ -45,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // time variables
     var startCount = false
     var startTheGame = false
-    var setTime = 60
+    var setTime = 5
     var myTime = 0
     
     // difficulty parameters
@@ -178,7 +176,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if self.myTime < 1 {
                 if score >= Int(scoreToBeat) {
-                    nextLevel()
+                    if currentLevel < 12 {
+                        nextLevel()
+                    } else {
+                        gameComplete()
+                    }
                 } else {
                     gameOver()
                 }
@@ -268,6 +270,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func retryBtnWasPressed() {
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
         let gameScene = SKScene(fileNamed: "GameScene")!
+        gameScene.scaleMode = .aspectFill
+        self.view?.presentScene(gameScene, transition: reveal)
+    }
+    
+    func gameComplete() {
+        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+        let gameScene = SKScene(fileNamed: "CompletedGameScene")!
         gameScene.scaleMode = .aspectFill
         self.view?.presentScene(gameScene, transition: reveal)
     }
