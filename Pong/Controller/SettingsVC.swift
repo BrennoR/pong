@@ -14,6 +14,7 @@ class SettingsVC: UIViewController, GADBannerViewDelegate {
     
     @IBOutlet weak var adBanner3: GADBannerView!
     
+    @IBOutlet weak var audioSwitch: UISwitch!
     @IBOutlet weak var paddleColorBtn: UIButton!
     @IBOutlet weak var enemyPaddleColorBtn: UIButton!
     @IBOutlet weak var ballColorBtn: UIButton!
@@ -36,6 +37,7 @@ class SettingsVC: UIViewController, GADBannerViewDelegate {
         
         adBanner3.load(request)
         
+        audioSwitch.isOn = UserDefaults.standard.value(forKey: "audioEnabled") as? Bool ?? true
         updateColors()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateColors), name: Notification.Name("updateColors"), object: nil)
@@ -60,5 +62,16 @@ class SettingsVC: UIViewController, GADBannerViewDelegate {
         ballColorBtn.backgroundColor = UserDefaults.standard.colorForKey(key: "ballColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         backgroundThemeBtn.backgroundColor = UserDefaults.standard.colorForKey(key: "backgroundTheme") ?? #colorLiteral(red: 0.1490196139, green: 0.1490196139, blue: 0.1490196139, alpha: 1)
     }
+    
+    @IBAction func audioSwitchWasUsed(_ sender: Any) {
+        if audioSwitch.isOn {
+            UserDefaults.standard.set(true, forKey: "audioEnabled")
+            AudioSettings.instance.soundEnabled = true
+        } else {
+            UserDefaults.standard.set(false, forKey: "audioEnabled")
+            AudioSettings.instance.soundEnabled = false
+        }
+    }
+    
 
 }

@@ -10,12 +10,11 @@ import Foundation
 import UIKit
 
 extension UserDefaults {
+    
     func colorForKey(key: String) -> UIColor? {
         var color: UIColor?
         if let colorData = data(forKey: key) {
             color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor
-        } else {
-            color = UIColor.white
         }
         
         return color

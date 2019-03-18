@@ -9,14 +9,20 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import GoogleMobileAds
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GADInterstitialDelegate {
     
     var freeplay = false
     var file = ""
+    
+    var interstitial: GADInterstitial!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // interstitial add
+        interstitial = createAndLoadInterstitial()
         
         if freeplay {
             file = "FreeplayScene"
@@ -40,6 +46,7 @@ class GameViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(gameOver), name: NSNotification.Name(rawValue: "gameOver"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showInterstitial), name: NSNotification.Name(rawValue: "showInterstitial"), object: nil)
     }
 
     override var shouldAutorotate: Bool {
@@ -60,5 +67,24 @@ class GameViewController: UIViewController {
     
     @objc func gameOver() {
         performSegue(withIdentifier: "backToHome", sender: nil)
+    }
+    
+    func createAndLoadInterstitial() -> GADInterstitial {
+        var interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
+    }
+    
+    @objc func showInterstitial() {
+        if interstitial.isReady {
+            interstitial.present(fromRootViewController: self)
+        } else {
+            print("Ad wasn't ready")
+        }
     }
 }

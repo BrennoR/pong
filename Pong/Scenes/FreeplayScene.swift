@@ -41,6 +41,9 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     var hearts = [SKSpriteNode]()
     var enemyHearts = [SKSpriteNode]()
     
+    // sounds
+    var sounds = AudioSettings.instance.sounds
+    
     // lives
     var lives = 3
     var enemyLives = 3
@@ -57,6 +60,11 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     // names
     var playerName = "Your Score"
     var enemyName = "Enemy"
+    
+    // ad timer
+    var startCount = true
+    var startTime = 0
+    var timer = 0
     
     override func didMove(to view: SKView) {
         
@@ -132,6 +140,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         let border = SKPhysicsBody(edgeLoopFrom: self.frame)
         border.friction = 0
         border.restitution = 1
+        border.collisionBitMask = 3
         
         self.physicsBody = border
     }
@@ -171,6 +180,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         if contact.bodyA.collisionBitMask == 2 || contact.bodyB.collisionBitMask == 2 {
             print(contact.bodyA.node?.name)
             print(contact.bodyB.node?.name)
+            AudioSettings.instance.playSound(soundIndex: 0)
             
             // contact with main paddle
             if contact.bodyA.node?.name == "mainPaddle" || contact.bodyB.node?.name == "mainPaddle" {
@@ -192,18 +202,29 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
                     ball.physicsBody?.velocity.dy = CGFloat(v) * sin(angle)
                 }
             }
-            
+        }
+        
+        if contact.bodyA.collisionBitMask == 3 || contact.bodyB.collisionBitMask == 3 {
+            AudioSettings.instance.playSound(soundIndex: 1)
         }
         
     }
     
     override func update(_ currentTime: TimeInterval) {
         
+        if startCount == true {
+            self.startTime = Int(currentTime)
+            startCount = false
+        }
+        
+        self.timer = Int(currentTime) - self.startTime
+        
         if playerNumber == 1 {
             enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 0.8))
         }
         
         if ball.position.y <= mainPaddle.position.y - 70 {
+            AudioSettings.instance.playSound(soundIndex: 2)
             if mode == 1 {
                 lives -= 1
                 hearts[lives].removeFromParent()
@@ -215,6 +236,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
             serve(sign: 1)
             
         } else if ball.position.y >= enemyPaddle.position.y + 70 {
+            AudioSettings.instance.playSound(soundIndex: 2)
             score += 1
             scoreLbl.text = "\(score)"
             if mode == 1 && playerNumber == 2 {
@@ -292,6 +314,12 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         btn.name = name
     }
     
+    func showInterstitial() {
+        if timer > 90 {
+            NotificationCenter.default.post(name: NSNotification.Name("showInterstitial"), object: nil)
+        }
+    }
+    
     @objc func pauseBtnWasPressed() {
         physicsWorld.speed = 0
         pausePopUp.isHidden = false
@@ -302,7 +330,6 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         popUpScoreLbl.text = "\(playerName): \(score)"
         popUpScoreLbl2.text = "\(enemyName): \(enemyScore)"
         popUp.isHidden = false
-//        pausePopUp.removeFromParent()
         pauseBtn.isEnabled = false
     }
     
@@ -312,6 +339,8 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func retryBtnWasPressed() {
+        showInterstitial()
+        
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
         let gameScene = SKScene(fileNamed: "FreeplayScene")!
         gameScene.scaleMode = .aspectFill
@@ -319,6 +348,8 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func quitBtnWasPressed() {
+        showInterstitial()
+        
         NotificationCenter.default.post(name: NSNotification.Name("gameOver"), object: nil)
     }
     

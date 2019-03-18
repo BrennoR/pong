@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 import AVFoundation
+import GameKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -21,6 +22,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lvlCompletePopUp = SKShapeNode()
     var startGamePopUp = SKShapeNode()
     var gameOverPopUp = SKShapeNode()
+    var pausePopUp = SKShapeNode()
     var currentLvlLbl = SKLabelNode()
     var scoreToBeatLbl = SKLabelNode()
     var timeToSurviveLbl = SKLabelNode()
@@ -30,8 +32,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var nextLvlBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
     var retryBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
     var quitBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
+    var pauseBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "pause_btn"), selectedTexture: SKTexture.init(imageNamed: "pause_btn"), disabledTexture: SKTexture.init(imageNamed: "pause_btn"))
+    var continueBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
+    var restartBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
+    var quitBtn2 = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
     
     var hearts = [SKSpriteNode]()
+    
+    // sounds
+    var sounds = AudioSettings.instance.sounds
     
     // initiate score and lives
     var score = 0
@@ -43,13 +52,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // time variables
     var startCount = false
     var startTheGame = false
-    var setTime = 5
+    var setTime = 60
     var myTime = 0
     
     // difficulty parameters
     var velocity = LevelSettings.instance.current_setting[0]
     var reaction = LevelSettings.instance.current_setting[1]
     var scoreToBeat = LevelSettings.instance.current_setting[2]
+    var mainPaddleSizeFactor = LevelSettings.instance.current_setting[3]
     
     // level variables
     var currentLevel = LevelSettings.instance.currentLevel
@@ -67,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         lvlCompletePopUp = self.childNode(withName: "lvlCompletePopUp") as! SKShapeNode
         startGamePopUp = self.childNode(withName: "startGamePopUp") as! SKShapeNode
         gameOverPopUp = self.childNode(withName: "gameOverPopUp") as! SKShapeNode
+        pausePopUp = self.childNode(withName: "pausePopUp") as! SKShapeNode
         
         // start game pop-up label nodes
         currentLvlLbl = startGamePopUp.childNode(withName: "currentLvlLbl") as! SKLabelNode
@@ -76,11 +87,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreToBeatLbl.text = "Score > \(scoreToBeat)"
         timeToSurviveLbl.text = "Survive > \(setTime) sec"
         
+        // pause button
+        pauseBtn.size = CGSize(width: 75, height: 75)
+        pauseBtn.position = CGPoint(x: -15, y: (self.frame.height / 2) - 50)
+        print(-(self.frame.height / 2) + 200)
+        pauseBtn.zPosition = 4
+        pauseBtn.name = "pauseBtn"
+        pauseBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.pauseBtnWasPressed))
+        self.addChild(pauseBtn)
+        
         // pop-up buttons
         setupPopUpBtns()
         
         lvlCompletePopUp.isHidden = true
+        pausePopUp.isHidden = true
         gameOverPopUp.isHidden = true
+        
+        // paddle sizes
+        mainPaddle.size.width = self.frame.size.width * CGFloat(mainPaddleSizeFactor)
         
         for i in 1...3 {
             hearts.append(self.childNode(withName: "heart\(i)") as! SKSpriteNode)
@@ -96,9 +120,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let border = SKPhysicsBody(edgeLoopFrom: self.frame)
         border.friction = 0
         border.restitution = 1
+        border.collisionBitMask = 3
         
         self.physicsBody = border
-
+        
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -109,8 +134,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let rightOfEnemy = enemyPaddle.position.x + w / 2
         let distEnemy = rightOfEnemy - ball.position.x
         
-        let minAngle = CGFloat.pi*1/6
-        let maxAngle = CGFloat.pi*5/6
+        let minAngle = CGFloat.pi * 2/6
+        let maxAngle = CGFloat.pi * 4/6
         
         var v = sqrt(pow((ball.physicsBody?.velocity.dx)!, 2) + pow((ball.physicsBody?.velocity.dy)!, 2))
         
@@ -123,6 +148,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print(contact.bodyA.node?.name)
             print(contact.bodyB.node?.name)
             
+//            playSound(soundIndex: 0)
+            AudioSettings.instance.playSound(soundIndex: 0)
             // contact with main paddle
             if contact.bodyA.node?.name == "mainPaddle" || contact.bodyB.node?.name == "mainPaddle" {
                 
@@ -144,6 +171,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
             
+        }
+        
+        if contact.bodyA.collisionBitMask == 3 || contact.bodyB.collisionBitMask == 3 {
+            AudioSettings.instance.playSound(soundIndex: 1)
         }
         
     }
@@ -176,6 +207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if self.myTime < 1 {
                 if score >= Int(scoreToBeat) {
+                    updateLeaderboard()
                     if currentLevel < 12 {
                         nextLevel()
                     } else {
@@ -184,16 +216,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else {
                     gameOver()
                 }
+                self.isPaused = true
             }
         }
         
         if ball.position.y <= mainPaddle.position.y - 70 {
             // Removes lives
+            AudioSettings.instance.playSound(soundIndex: 2)
             hearts[lives - 1].removeFromParent()
             lives -= 1
             serve()
         } else if ball.position.y >= enemyPaddle.position.y + 70 {
             // Adds points
+            AudioSettings.instance.playSound(soundIndex: 2)
             score += 1
             scoreLbl.text = "Score: \(score)"
             serve()
@@ -251,6 +286,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupBtn(btn: nextLvlBtn, size: CGSize(width: 70, height: 20), position: CGPoint(x: 0, y: -27), title: "Next Lvl", name: "nextLvlBtn")
         nextLvlBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(GameScene.nextLvlBtnWasPressed))
         lvlCompletePopUp.addChild(nextLvlBtn)
+        
+        setupBtn(btn: continueBtn, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: 15), title: "Continue", name: "continueBtn")
+        continueBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.continueBtnWasPressed))
+        pausePopUp.addChild(continueBtn)
+        
+        setupBtn(btn: restartBtn, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: -10), title: "Restart", name: "restartBtn")
+        restartBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.retryBtnWasPressed))
+        pausePopUp.addChild(restartBtn)
+        
+        setupBtn(btn: quitBtn2, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: -35), title: "Quit", name: "quitBtn2")
+        quitBtn2.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.quitBtnWasPressed))
+        pausePopUp.addChild(quitBtn2)
     }
     
     func setupBtn(btn: FTButtonNode, size: CGSize, position: CGPoint, title: NSString, name: String) {
@@ -265,6 +312,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func quitBtnWasPressed() {
         NotificationCenter.default.post(name: NSNotification.Name("gameOver"), object: nil)
+    }
+    
+    func showInterstitial() {
+        NotificationCenter.default.post(name: NSNotification.Name("showInterstitial"), object: nil)
     }
     
     @objc func retryBtnWasPressed() {
@@ -286,10 +337,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             LevelSettings.instance.currentLevel = currentLevel + 1
             LevelSettings.instance.current_setting = LevelSettings.instance.settings[currentLevel + 1]!
         }
+        
+        if currentLevel % 2 == 0 {
+            showInterstitial()
+        }
+        
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
         let gameScene = SKScene(fileNamed: "GameScene")!
         gameScene.scaleMode = .aspectFill
         self.view?.presentScene(gameScene, transition: reveal)
+    }
+    
+    @objc func pauseBtnWasPressed() {
+        physicsWorld.speed = 0
+        pausePopUp.isHidden = false
+    }
+    
+    @objc func continueBtnWasPressed() {
+        physicsWorld.speed = 1
+        pausePopUp.isHidden = true
+    }
+
+    func updateLeaderboard() {
+        var highScore = UserDefaults.standard.array(forKey: "scoreArray") as? [Int] ?? [Int](repeating: 0, count: 12)
+        if score > highScore[currentLevel - 1] {
+            let bestScoreInt = GKScore(leaderboardIdentifier: "grp.boards.level_\(currentLevel)")
+            bestScoreInt.value = Int64(score)
+            
+            GKScore.report([bestScoreInt]) { (error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else {
+                    print("Best Score submitted to your Leaderboard!")
+                }
+            }
+            highScore[currentLevel - 1] = score
+            UserDefaults.standard.set(highScore, forKey: "scoreArray")
+        }
     }
     
 }
