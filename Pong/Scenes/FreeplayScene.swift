@@ -218,6 +218,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         }
         
         self.timer = Int(currentTime) - self.startTime
+        print(self.timer)
         
         if playerNumber == 1 {
             enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 0.8))
@@ -315,9 +316,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func showInterstitial() {
-        if timer > 90 {
-            NotificationCenter.default.post(name: NSNotification.Name("showInterstitial"), object: nil)
-        }
+        NotificationCenter.default.post(name: NSNotification.Name("showInterstitial"), object: nil)
     }
     
     @objc func pauseBtnWasPressed() {
@@ -339,18 +338,26 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func retryBtnWasPressed() {
-        showInterstitial()
-        
-        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-        let gameScene = SKScene(fileNamed: "FreeplayScene")!
-        gameScene.scaleMode = .aspectFill
-        self.view?.presentScene(gameScene, transition: reveal)
+        if timer >= 90 {
+            showInterstitial()
+            freeplayHold = true
+            pausePopUp.isHidden = true
+        } else {
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            let gameScene = SKScene(fileNamed: "FreeplayScene")!
+            gameScene.scaleMode = .aspectFill
+            self.view?.presentScene(gameScene, transition: reveal)
+        }
     }
     
     @objc func quitBtnWasPressed() {
-        showInterstitial()
-        
-        NotificationCenter.default.post(name: NSNotification.Name("gameOver"), object: nil)
+        if timer >= 90 {
+            showInterstitial()
+            gameOverHold = true
+            pausePopUp.isHidden = true
+        } else {
+            NotificationCenter.default.post(name: NSNotification.Name("gameOver"), object: nil)
+        }
     }
     
 }

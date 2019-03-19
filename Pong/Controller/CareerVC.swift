@@ -21,19 +21,19 @@ class CareerVC: UIViewController, GADBannerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         enableBtns()
-        
-        // Google AdMob
-        // Request
-        let request = GADRequest()
-        request.testDevices = [kGADSimulatorID]
-        
-        // Set up ad
-        adBanner2.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        
-        adBanner2.rootViewController = self
-        adBanner2.delegate = self
-        
-        adBanner2.load(request)
+        setupAds()
+//        // Google AdMob
+//        // Request
+//        let request = GADRequest()
+//        request.testDevices = [kGADSimulatorID]
+//
+//        // Set up ad
+//        adBanner2.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//
+//        adBanner2.rootViewController = self
+//        adBanner2.delegate = self
+//
+//        adBanner2.load(request)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,5 +59,17 @@ class CareerVC: UIViewController, GADBannerViewDelegate {
         }
     }
     
+    @objc func setupAds() {
+        if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
+            adBanner2?.removeFromSuperview()
+        } else {
+            adBanner2.adUnitID = "ca-app-pub-6168015053740034/1040430807"
+            adBanner2.rootViewController = self
+//            adBanner2.delegate = self
+//            let request = GADRequest()
+//            request.testDevices = [kGADSimulatorID]
+            adBanner2.load(GADRequest())
+        }
+    }
     
 }

@@ -25,19 +25,20 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
         super.viewDidLoad()
 
         showPlayers()
+        setupAds()
         
-        // Google AdMob
-        // Request
-        let request = GADRequest()
-        request.testDevices = [kGADSimulatorID]
-        
-        // Set up ad
-        adBanner4.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        
-        adBanner4.rootViewController = self
-        adBanner4.delegate = self
-        
-        adBanner4.load(request)
+//        // Google AdMob
+//        // Request
+//        let request = GADRequest()
+//        request.testDevices = [kGADSimulatorID]
+//
+//        // Set up ad
+//        adBanner4.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//
+//        adBanner4.rootViewController = self
+//        adBanner4.delegate = self
+//
+//        adBanner4.load(request)
     }
     
     @IBAction func singlePlayerBtnWasPressed(_ sender: Any) {
@@ -92,6 +93,20 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
             GameVC.freeplay = true
             FreeplaySettings.instance.freeplayMode = livesMode
             FreeplaySettings.instance.freeplayPlayerNumber = playerNumber
+        }
+    }
+    
+    @objc func setupAds() {
+        print(UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM))
+        if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
+            adBanner4?.removeFromSuperview()
+        } else {
+            adBanner4.adUnitID = "ca-app-pub-6168015053740034/1040430807"
+            adBanner4.rootViewController = self
+//            adBanner4.delegate = self
+//            let request = GADRequest()
+//            request.testDevices = [kGADSimulatorID]
+            adBanner4.load(GADRequest())
         }
     }
 

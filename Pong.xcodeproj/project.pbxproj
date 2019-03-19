@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AE0C8894DF20FD1E94DEBB32 /* Pods_Pong.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD123FA7D8CB7DE145923AF /* Pods_Pong.framework */; };
 		B414FEE3223F1ACF00447290 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B414FEE2223F1ACF00447290 /* GameKit.framework */; };
+		B414FEE8223F54ED00447290 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B414FEE7223F54ED00447290 /* PurchaseManager.swift */; };
+		B414FEEA223F57DB00447290 /* PremiumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B414FEE9223F57DB00447290 /* PremiumVC.swift */; };
+		B414FEEC223F619600447290 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B414FEEB223F619600447290 /* StoreKit.framework */; };
 		B42E264D221A718200588251 /* FreeplayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E264C221A718200588251 /* FreeplayVC.swift */; };
 		B42E264F221A764000588251 /* FreeplayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B42E264E221A764000588251 /* FreeplayScene.sks */; };
 		B42E2651221A765000588251 /* FreeplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E2650221A765000588251 /* FreeplayScene.swift */; };
@@ -50,6 +53,9 @@
 		4AD123FA7D8CB7DE145923AF /* Pods_Pong.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pong.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80C3352CD8A089E23B63EBF1 /* Pods-Pong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pong.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pong/Pods-Pong.debug.xcconfig"; sourceTree = "<group>"; };
 		B414FEE2223F1ACF00447290 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		B414FEE7223F54ED00447290 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		B414FEE9223F57DB00447290 /* PremiumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumVC.swift; sourceTree = "<group>"; };
+		B414FEEB223F619600447290 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B42E264C221A718200588251 /* FreeplayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeplayVC.swift; sourceTree = "<group>"; };
 		B42E264E221A764000588251 /* FreeplayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FreeplayScene.sks; sourceTree = "<group>"; };
 		B42E2650221A765000588251 /* FreeplayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeplayScene.swift; sourceTree = "<group>"; };
@@ -93,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B414FEEC223F619600447290 /* StoreKit.framework in Frameworks */,
 				AE0C8894DF20FD1E94DEBB32 /* Pods_Pong.framework in Frameworks */,
 				B414FEE3223F1ACF00447290 /* GameKit.framework in Frameworks */,
 			);
@@ -104,10 +111,19 @@
 		4799914AF174267B73CAAE63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B414FEEB223F619600447290 /* StoreKit.framework */,
 				B414FEE2223F1ACF00447290 /* GameKit.framework */,
 				4AD123FA7D8CB7DE145923AF /* Pods_Pong.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B414FEE6223F54DF00447290 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B414FEE7223F54ED00447290 /* PurchaseManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		B4399976223EEF8700195F45 /* Audio */ = {
@@ -146,6 +162,7 @@
 		B44E5F7421CF67E500F57EF1 /* Pong */ = {
 			isa = PBXGroup;
 			children = (
+				B414FEE6223F54DF00447290 /* Services */,
 				B4399976223EEF8700195F45 /* Audio */,
 				B49E299021FD187200467208 /* Model */,
 				B49E299121FD187A00467208 /* View */,
@@ -193,6 +210,7 @@
 				B4E5D4A02218DAF0006BF1AE /* HomeVC.swift */,
 				B42E264C221A718200588251 /* FreeplayVC.swift */,
 				B439998D223F15CA00195F45 /* LeaderboardsVC.swift */,
+				B414FEE9223F57DB00447290 /* PremiumVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -254,6 +272,9 @@
 						CreatedOnToolsVersion = 10.0;
 						SystemCapabilities = {
 							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 						};
@@ -329,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4E5D49D2218D4D0006BF1AE /* SettingsVC.swift in Sources */,
+				B414FEE8223F54ED00447290 /* PurchaseManager.swift in Sources */,
 				B44E5F7C21CF67E500F57EF1 /* GameScene.swift in Sources */,
 				B452E7242235EB620032B6BA /* FTButtonNode.swift in Sources */,
 				B49E299421FD18A300467208 /* CareerVC.swift in Sources */,
@@ -343,6 +365,7 @@
 				B4399973223C621600195F45 /* CompletedGameScene.swift in Sources */,
 				B4E5D4992218D278006BF1AE /* ColorPaletteVC.swift in Sources */,
 				B4D3A25D2217E82100554651 /* BorderButton.swift in Sources */,
+				B414FEEA223F57DB00447290 /* PremiumVC.swift in Sources */,
 				B42E264D221A718200588251 /* FreeplayVC.swift in Sources */,
 				B42E2651221A765000588251 /* FreeplayScene.swift in Sources */,
 				B4E5D48E2218AC6A006BF1AE /* RoundedShadowButton.swift in Sources */,

@@ -23,19 +23,21 @@ class SettingsVC: UIViewController, GADBannerViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(setupAds), name: Notification.Name("ADS"), object: nil)
         
-        // Google AdMob
-        // Request
-        let request = GADRequest()
-        request.testDevices = [kGADSimulatorID]
-        
-        // Set up ad
-        adBanner3.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        
-        adBanner3.rootViewController = self
-        adBanner3.delegate = self
-        
-        adBanner3.load(request)
+//        // Google AdMob
+//        // Request
+//        let request = GADRequest()
+//        request.testDevices = [kGADSimulatorID]
+//
+//        // Set up ad
+//        adBanner3.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//
+//        adBanner3.rootViewController = self
+//        adBanner3.delegate = self
+//
+//        adBanner3.load(request)
+        setupAds()
         
         audioSwitch.isOn = UserDefaults.standard.value(forKey: "audioEnabled") as? Bool ?? true
         updateColors()
@@ -70,6 +72,27 @@ class SettingsVC: UIViewController, GADBannerViewDelegate {
         } else {
             UserDefaults.standard.set(false, forKey: "audioEnabled")
             AudioSettings.instance.soundEnabled = false
+        }
+    }
+    
+    @IBAction func removeAdsBtnWasPressed(_ sender: Any) {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumID") as! PremiumVC
+        self.addChild(premiumVC)
+        premiumVC.view.frame = self.view.frame
+        self.view.addSubview(premiumVC.view)
+        premiumVC.didMove(toParent: self)
+    }
+    
+    @objc func setupAds() {
+        if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
+            adBanner3?.removeFromSuperview()
+        } else {
+            adBanner3.adUnitID = "ca-app-pub-6168015053740034/1040430807"
+            adBanner3.rootViewController = self
+//            adBanner3.delegate = self
+//            let request = GADRequest()
+//            request.testDevices = [kGADSimulatorID]
+            adBanner3.load(GADRequest())
         }
     }
     

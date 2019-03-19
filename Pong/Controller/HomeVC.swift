@@ -33,19 +33,20 @@ class HomeVC: UIViewController, GADBannerViewDelegate, GKGameCenterControllerDel
         super.viewDidLoad()
         
         authenticateLocalPlayer()
+        setupAds()
 
-        // Google AdMob
-        // Request
-        let request = GADRequest()
-        request.testDevices = [kGADSimulatorID]
-        
-        // Set up ad
-        adBanner1.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        
-        adBanner1.rootViewController = self
-        adBanner1.delegate = self
-        
-        adBanner1.load(request)
+//        // Google AdMob
+//        // Request
+//        let request = GADRequest()
+//        request.testDevices = [kGADSimulatorID]
+//
+//        // Set up ad
+//        adBanner1.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//
+//        adBanner1.rootViewController = self
+//        adBanner1.delegate = self
+//
+//        adBanner1.load(request)
     }
     
     @IBAction func freeplayBtnWasPressed(_ sender: Any) {
@@ -91,6 +92,19 @@ class HomeVC: UIViewController, GADBannerViewDelegate, GKGameCenterControllerDel
     
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func setupAds() {
+        if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
+            adBanner1?.removeFromSuperview()
+        } else {
+            adBanner1.adUnitID = "ca-app-pub-6168015053740034/1040430807"
+            adBanner1.rootViewController = self
+//            adBanner1.delegate = self
+//            let request = GADRequest()
+//            request.testDevices = [kGADSimulatorID]
+            adBanner1.load(GADRequest())
+        }
     }
 
 }

@@ -11,6 +11,9 @@ import SpriteKit
 import GameplayKit
 import GoogleMobileAds
 
+var freeplayHold = false
+var gameOverHold = false
+
 class GameViewController: UIViewController, GADInterstitialDelegate {
     
     var freeplay = false
@@ -78,6 +81,21 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         interstitial = createAndLoadInterstitial()
+        
+        if freeplayHold == true {
+            if let view = self.view as! SKView? {
+                let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+                let gameScene = SKScene(fileNamed: "FreeplayScene")!
+                gameScene.scaleMode = .aspectFill
+                view.presentScene(gameScene, transition: reveal)
+            }
+        }
+        freeplayHold = false
+        
+        if gameOverHold == true {
+            gameOver()
+        }
+        gameOverHold = false
     }
     
     @objc func showInterstitial() {
