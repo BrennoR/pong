@@ -19,15 +19,10 @@
 		B4399971223C5B5B00195F45 /* CompletedGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B4399970223C5B5B00195F45 /* CompletedGameScene.sks */; };
 		B4399973223C621600195F45 /* CompletedGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4399972223C621600195F45 /* CompletedGameScene.swift */; };
 		B4399975223C9BA600195F45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4399974223C9BA600195F45 /* Main.storyboard */; };
-		B4399978223EF14400195F45 /* paddle_hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399977223EEF9000195F45 /* paddle_hit.wav */; };
-		B4399980223EF66700195F45 /* paddle_hit_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = B439997F223EF66700195F45 /* paddle_hit_2.wav */; };
-		B4399982223EF8F200195F45 /* paddle_hit_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399981223EF8F200195F45 /* paddle_hit_3.wav */; };
-		B4399984223EFA1900195F45 /* wall_hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399983223EFA1900195F45 /* wall_hit.wav */; };
-		B4399986223EFF3000195F45 /* wall_hit_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399985223EFF3000195F45 /* wall_hit_2.wav */; };
-		B4399988223F000400195F45 /* goal_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399987223F000400195F45 /* goal_sound.wav */; };
-		B439998A223F024500195F45 /* goal_sound_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399989223F024500195F45 /* goal_sound_2.wav */; };
+		B4399982223EF8F200195F45 /* paddle_hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399981223EF8F200195F45 /* paddle_hit.wav */; };
+		B4399986223EFF3000195F45 /* wall_hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399985223EFF3000195F45 /* wall_hit.wav */; };
+		B439998A223F024500195F45 /* goal_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B4399989223F024500195F45 /* goal_sound.wav */; };
 		B439998C223F039A00195F45 /* AudioSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B439998B223F039A00195F45 /* AudioSettings.swift */; };
-		B439998E223F15CA00195F45 /* LeaderboardsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B439998D223F15CA00195F45 /* LeaderboardsVC.swift */; };
 		B44C8712221135DF0051CF43 /* LevelSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44C8711221135DF0051CF43 /* LevelSettings.swift */; };
 		B44E5F7621CF67E500F57EF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5F7521CF67E500F57EF1 /* AppDelegate.swift */; };
 		B44E5F7821CF67E500F57EF1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F7721CF67E500F57EF1 /* GameScene.sks */; };
@@ -39,7 +34,6 @@
 		B452E7242235EB620032B6BA /* FTButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452E7232235EB620032B6BA /* FTButtonNode.swift */; };
 		B49E299421FD18A300467208 /* CareerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49E299321FD18A300467208 /* CareerVC.swift */; };
 		B4D3A25D2217E82100554651 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D3A25C2217E82100554651 /* BorderButton.swift */; };
-		B4D3A25F2218A86900554651 /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D3A25E2218A86900554651 /* GradientLayer.swift */; };
 		B4E5D48E2218AC6A006BF1AE /* RoundedShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */; };
 		B4E5D4992218D278006BF1AE /* ColorPaletteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */; };
 		B4E5D49B2218D310006BF1AE /* colorPaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D49A2218D310006BF1AE /* colorPaletteCell.swift */; };
@@ -63,15 +57,10 @@
 		B4399970223C5B5B00195F45 /* CompletedGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CompletedGameScene.sks; sourceTree = "<group>"; };
 		B4399972223C621600195F45 /* CompletedGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedGameScene.swift; sourceTree = "<group>"; };
 		B4399974223C9BA600195F45 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
-		B4399977223EEF9000195F45 /* paddle_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = paddle_hit.wav; sourceTree = "<group>"; };
-		B439997F223EF66700195F45 /* paddle_hit_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = paddle_hit_2.wav; path = ../../../../paddle_hit_2.wav; sourceTree = "<group>"; };
-		B4399981223EF8F200195F45 /* paddle_hit_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = paddle_hit_3.wav; path = ../../../../paddle_hit_3.wav; sourceTree = "<group>"; };
-		B4399983223EFA1900195F45 /* wall_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wall_hit.wav; path = ../../../../wall_hit.wav; sourceTree = "<group>"; };
-		B4399985223EFF3000195F45 /* wall_hit_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wall_hit_2.wav; path = ../../../../wall_hit_2.wav; sourceTree = "<group>"; };
-		B4399987223F000400195F45 /* goal_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = goal_sound.wav; path = ../../../../goal_sound.wav; sourceTree = "<group>"; };
-		B4399989223F024500195F45 /* goal_sound_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = goal_sound_2.wav; path = ../../../../goal_sound_2.wav; sourceTree = "<group>"; };
+		B4399981223EF8F200195F45 /* paddle_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = paddle_hit.wav; path = ../../../../paddle_hit.wav; sourceTree = "<group>"; };
+		B4399985223EFF3000195F45 /* wall_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wall_hit.wav; path = ../../../../wall_hit.wav; sourceTree = "<group>"; };
+		B4399989223F024500195F45 /* goal_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = goal_sound.wav; path = ../../../../goal_sound.wav; sourceTree = "<group>"; };
 		B439998B223F039A00195F45 /* AudioSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSettings.swift; sourceTree = "<group>"; };
-		B439998D223F15CA00195F45 /* LeaderboardsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardsVC.swift; sourceTree = "<group>"; };
 		B44C8711221135DF0051CF43 /* LevelSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSettings.swift; sourceTree = "<group>"; };
 		B44E5F7221CF67E500F57EF1 /* Pong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44E5F7521CF67E500F57EF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +74,6 @@
 		B452E7232235EB620032B6BA /* FTButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTButtonNode.swift; sourceTree = "<group>"; };
 		B49E299321FD18A300467208 /* CareerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerVC.swift; sourceTree = "<group>"; };
 		B4D3A25C2217E82100554651 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
-		B4D3A25E2218A86900554651 /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowButton.swift; sourceTree = "<group>"; };
 		B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteVC.swift; sourceTree = "<group>"; };
 		B4E5D49A2218D310006BF1AE /* colorPaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorPaletteCell.swift; sourceTree = "<group>"; };
@@ -129,13 +117,9 @@
 		B4399976223EEF8700195F45 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				B4399987223F000400195F45 /* goal_sound.wav */,
-				B4399989223F024500195F45 /* goal_sound_2.wav */,
-				B4399983223EFA1900195F45 /* wall_hit.wav */,
-				B4399985223EFF3000195F45 /* wall_hit_2.wav */,
-				B4399981223EF8F200195F45 /* paddle_hit_3.wav */,
-				B439997F223EF66700195F45 /* paddle_hit_2.wav */,
-				B4399977223EEF9000195F45 /* paddle_hit.wav */,
+				B4399989223F024500195F45 /* goal_sound.wav */,
+				B4399985223EFF3000195F45 /* wall_hit.wav */,
+				B4399981223EF8F200195F45 /* paddle_hit.wav */,
 				B439998B223F039A00195F45 /* AudioSettings.swift */,
 			);
 			path = Audio;
@@ -193,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				B4D3A25C2217E82100554651 /* BorderButton.swift */,
-				B4D3A25E2218A86900554651 /* GradientLayer.swift */,
 				B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */,
 				B4E5D49A2218D310006BF1AE /* colorPaletteCell.swift */,
 			);
@@ -209,7 +192,6 @@
 				B4E5D49C2218D4D0006BF1AE /* SettingsVC.swift */,
 				B4E5D4A02218DAF0006BF1AE /* HomeVC.swift */,
 				B42E264C221A718200588251 /* FreeplayVC.swift */,
-				B439998D223F15CA00195F45 /* LeaderboardsVC.swift */,
 				B414FEE9223F57DB00447290 /* PremiumVC.swift */,
 			);
 			path = Controller;
@@ -248,6 +230,7 @@
 				B44E5F6E21CF67E500F57EF1 /* Sources */,
 				B44E5F6F21CF67E500F57EF1 /* Frameworks */,
 				B44E5F7021CF67E500F57EF1 /* Resources */,
+				1995038FEE59914F2C61E59F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -304,19 +287,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4399982223EF8F200195F45 /* paddle_hit_3.wav in Resources */,
-				B4399978223EF14400195F45 /* paddle_hit.wav in Resources */,
+				B4399982223EF8F200195F45 /* paddle_hit.wav in Resources */,
 				B44E5F7821CF67E500F57EF1 /* GameScene.sks in Resources */,
-				B4399986223EFF3000195F45 /* wall_hit_2.wav in Resources */,
-				B4399980223EF66700195F45 /* paddle_hit_2.wav in Resources */,
+				B4399986223EFF3000195F45 /* wall_hit.wav in Resources */,
 				B4399971223C5B5B00195F45 /* CompletedGameScene.sks in Resources */,
 				B44E5F8321CF67E600F57EF1 /* Assets.xcassets in Resources */,
 				B4399975223C9BA600195F45 /* Main.storyboard in Resources */,
-				B439998A223F024500195F45 /* goal_sound_2.wav in Resources */,
+				B439998A223F024500195F45 /* goal_sound.wav in Resources */,
 				B44E5F8621CF67E600F57EF1 /* LaunchScreen.storyboard in Resources */,
-				B4399984223EFA1900195F45 /* wall_hit.wav in Resources */,
 				B44E5F7A21CF67E500F57EF1 /* Actions.sks in Resources */,
-				B4399988223F000400195F45 /* goal_sound.wav in Resources */,
 				B42E264F221A764000588251 /* FreeplayScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,6 +303,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1995038FEE59914F2C61E59F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Pong/Pods-Pong-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pong/Pods-Pong-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		69BE6D9E64BC8A078C5519B3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,8 +357,6 @@
 				B44E5F7C21CF67E500F57EF1 /* GameScene.swift in Sources */,
 				B452E7242235EB620032B6BA /* FTButtonNode.swift in Sources */,
 				B49E299421FD18A300467208 /* CareerVC.swift in Sources */,
-				B439998E223F15CA00195F45 /* LeaderboardsVC.swift in Sources */,
-				B4D3A25F2218A86900554651 /* GradientLayer.swift in Sources */,
 				B42E2653221A82DC00588251 /* FreeplaySettings.swift in Sources */,
 				B4E5D4A12218DAF0006BF1AE /* HomeVC.swift in Sources */,
 				B44E5F7E21CF67E500F57EF1 /* GameViewController.swift in Sources */,

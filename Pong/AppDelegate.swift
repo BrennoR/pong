@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-6168015053740034~8803395358")
-        AudioSettings.instance.setupAudio()
+        GADMobileAds.sharedInstance().start(completionHandler: nil)     // initialize Google Admob
+        AudioSettings.instance.setupAudio()     // initialize audio
         
         return true
     }

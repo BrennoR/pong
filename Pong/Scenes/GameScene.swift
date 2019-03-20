@@ -37,6 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var restartBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
     var quitBtn2 = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
     
+    // heart live sprites
     var hearts = [SKSpriteNode]()
     
     // sounds
@@ -54,6 +55,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var startTheGame = false
     var setTime = 60
     var myTime = 0
+    var oldTime = 0
+    var wasPaused = false
     
     // difficulty parameters
     var velocity = LevelSettings.instance.current_setting[0]
@@ -66,8 +69,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var availableLevelIndex = UserDefaults.standard.integer(forKey: "availableLevelIndex")
     
     override func didMove(to view: SKView) {
-        
         physicsWorld.contactDelegate = self
+        
         // child nodes
         ball = self.childNode(withName: "ball") as! SKSpriteNode
         mainPaddle = self.childNode(withName: "mainPaddle") as! SKSpriteNode
@@ -95,10 +98,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseBtn.name = "pauseBtn"
         pauseBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.pauseBtnWasPressed))
         self.addChild(pauseBtn)
+        pauseBtn.isEnabled = false
         
         // pop-up buttons
         setupPopUpBtns()
         
+        // hide pop-ups
         lvlCompletePopUp.isHidden = true
         pausePopUp.isHidden = true
         gameOverPopUp.isHidden = true
@@ -106,6 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // paddle sizes
         mainPaddle.size.width = self.frame.size.width * CGFloat(mainPaddleSizeFactor)
         
+        // heart sprites
         for i in 1...3 {
             hearts.append(self.childNode(withName: "heart\(i)") as! SKSpriteNode)
         }
@@ -145,14 +151,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         if contact.bodyA.collisionBitMask == 2 || contact.bodyB.collisionBitMask == 2 {
-            print(contact.bodyA.node?.name)
-            print(contact.bodyB.node?.name)
-            
-//            playSound(soundIndex: 0)
+
             AudioSettings.instance.playSound(soundIndex: 0)
             // contact with main paddle
             if contact.bodyA.node?.name == "mainPaddle" || contact.bodyB.node?.name == "mainPaddle" {
-                
                 if ball.position.y > mainPaddle.position.y + 15 {
                     let angle = minAngle + (maxAngle - minAngle) * (dist / w)
                     
@@ -160,7 +162,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     ball.physicsBody?.velocity.dy = CGFloat(v) * sin(angle)
                 }
             }
-            
             // contact with enemy paddle
             if contact.bodyA.node?.name == "enemyPaddle" || contact.bodyB.node?.name == "enemyPaddle" {
                 if ball.position.y < enemyPaddle.position.y - 15 {
@@ -173,12 +174,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
+        // contact with wall
         if contact.bodyA.collisionBitMask == 3 || contact.bodyB.collisionBitMask == 3 {
             AudioSettings.instance.playSound(soundIndex: 1)
         }
         
     }
     
+    // touch functionality
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
@@ -196,9 +199,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: reaction))
         
+        // sets timer on start of match
         if self.startCount == true {
             self.setTime += Int(currentTime)
             self.startCount = false
+        }
+        
+        // adjust timer after pausing
+        if self.wasPaused == true {
+            self.setTime += (oldTime - (self.setTime - Int(currentTime)))
+            self.wasPaused = false
         }
         
         if self.startTheGame == true {
@@ -211,7 +221,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if currentLevel < 12 {
                         nextLevel()
                     } else {
-                        gameComplete()
+                        revealScene(Filename: "CompletedGameScene")
                     }
                 } else {
                     gameOver()
@@ -239,6 +249,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    // serving function
     func serve() {
         serving = true
         enemyPaddle.run(SKAction.moveTo(x: 0, duration: 0.1))
@@ -247,14 +258,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.applyImpulse(CGVector(dx: 0, dy: velocity * 0.5))
     }
     
+    // initializes start variables and performs initial ball serve
     @objc func startGame() {
         startCount = true
         startTheGame = true
-//        ball.physicsBody?.applyImpulse(CGVector(dx: velocity, dy: velocity))
         serve()
+        pauseBtn.isEnabled = true
         startGamePopUp.isHidden = true
     }
     
+    // updates unlocked levels and presents next level pop-up
     func nextLevel() {
         if currentLevel > availableLevelIndex && availableLevelIndex < 11 {
             UserDefaults.standard.set(availableLevelIndex + 1, forKey: "availableLevelIndex")
@@ -264,12 +277,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.removeFromParent()
     }
     
+    // presents game over pop-up
     func gameOver() {
         lvlCompletePopUp.removeFromParent()
         gameOverPopUp.isHidden = false
-        physicsWorld.speed = 0
+        self.isPaused = true
     }
     
+    // button setup
     func setupPopUpBtns() {
         setupBtn(btn: startGameBtn, size: CGSize(width: 70, height: 20), position: CGPoint(x: 0, y: -35), title: "Start", name: "startGameBtn")
         startGameBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(GameScene.startGame))
@@ -300,6 +315,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pausePopUp.addChild(quitBtn2)
     }
     
+    // button setup helper function
     func setupBtn(btn: FTButtonNode, size: CGSize, position: CGPoint, title: NSString, name: String) {
         btn.setButtonLabel(title: title, font: "Avenir", fontSize: 26, fontColor: UIColor.black)
         btn.label.xScale = 0.5
@@ -310,28 +326,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         btn.name = name
     }
     
+    // returns to homeVC
     @objc func quitBtnWasPressed() {
         NotificationCenter.default.post(name: NSNotification.Name("gameOver"), object: nil)
     }
     
+    // interstitial ad pop-up
     func showInterstitial() {
         NotificationCenter.default.post(name: NSNotification.Name("showInterstitial"), object: nil)
     }
     
-    @objc func retryBtnWasPressed() {
-        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-        let gameScene = SKScene(fileNamed: "GameScene")!
-        gameScene.scaleMode = .aspectFill
-        self.view?.presentScene(gameScene, transition: reveal)
-    }
-    
-    func gameComplete() {
-        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-        let gameScene = SKScene(fileNamed: "CompletedGameScene")!
-        gameScene.scaleMode = .aspectFill
-        self.view?.presentScene(gameScene, transition: reveal)
-    }
-    
+    // reloads scene with the settings of the next level
     @objc func nextLvlBtnWasPressed() {
         if currentLevel < 12 {
             LevelSettings.instance.currentLevel = currentLevel + 1
@@ -342,22 +347,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             showInterstitial()
         }
         
+        revealScene(Filename: "GameScene")
+    }
+    
+    // reloads scene
+    @objc func retryBtnWasPressed() {
+        revealScene(Filename: "GameScene")
+    }
+    
+    // scene loading function
+    @objc func revealScene(Filename: String) {
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-        let gameScene = SKScene(fileNamed: "GameScene")!
+        let gameScene = SKScene(fileNamed: Filename)!
         gameScene.scaleMode = .aspectFill
         self.view?.presentScene(gameScene, transition: reveal)
     }
     
+    // pauses game and presents pause pop-up
     @objc func pauseBtnWasPressed() {
-        physicsWorld.speed = 0
+        self.isPaused = true
+        oldTime = myTime
         pausePopUp.isHidden = false
     }
     
+    // continues game from pause pop-up
     @objc func continueBtnWasPressed() {
-        physicsWorld.speed = 1
+        self.isPaused = false
+        self.wasPaused = true
         pausePopUp.isHidden = true
     }
 
+    // sends highscores to leaderboard
     func updateLeaderboard() {
         var highScore = UserDefaults.standard.array(forKey: "scoreArray") as? [Int] ?? [Int](repeating: 0, count: 12)
         if score > highScore[currentLevel - 1] {

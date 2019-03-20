@@ -11,26 +11,27 @@ import SpriteKit
 import GameplayKit
 import GoogleMobileAds
 
-var freeplayHold = false
+// hold variables for interstitial ad
+var freeplayHold = false    
 var gameOverHold = false
 
 class GameViewController: UIViewController, GADInterstitialDelegate {
     
-    var freeplay = false
-    var file = ""
+    var freeplay = false    // freeplay variable
+    var file = ""           // file name
     
     var interstitial: GADInterstitial!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // interstitial add
+        // interstitial ad
         interstitial = createAndLoadInterstitial()
         
         if freeplay {
-            file = "FreeplayScene"
+            file = "FreeplayScene"  // freeplay scene
         } else {
-            file = "GameScene"
+            file = "GameScene"      // career game scene
         }
         
         if let view = self.view as! SKView? {
@@ -48,7 +49,9 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
             view.showsNodeCount = true
         }
         
+        // game over observer
         NotificationCenter.default.addObserver(self, selector: #selector(gameOver), name: NSNotification.Name(rawValue: "gameOver"), object: nil)
+        // interstitial ad observer
         NotificationCenter.default.addObserver(self, selector: #selector(showInterstitial), name: NSNotification.Name(rawValue: "showInterstitial"), object: nil)
     }
 
@@ -68,20 +71,23 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
         return true
     }
     
+    // homeVC segue
     @objc func gameOver() {
         performSegue(withIdentifier: "backToHome", sender: nil)
     }
     
+    // loads interstitial
     func createAndLoadInterstitial() -> GADInterstitial {
-        var interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
         interstitial.delegate = self
         interstitial.load(GADRequest())
         return interstitial
     }
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        interstitial = createAndLoadInterstitial()
+        interstitial = createAndLoadInterstitial() // loads new interstitial
         
+        // reloads freeplayscene after interstitial is dismissed
         if freeplayHold == true {
             if let view = self.view as! SKView? {
                 let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
@@ -92,12 +98,14 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
         }
         freeplayHold = false
         
+        // returns to homeVC after interstitial is dismissed
         if gameOverHold == true {
             gameOver()
         }
         gameOverHold = false
     }
     
+    // presents interstitial ad
     @objc func showInterstitial() {
         if interstitial.isReady {
             interstitial.present(fromRootViewController: self)

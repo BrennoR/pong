@@ -10,8 +10,8 @@ import Foundation
 
 class FreeplaySettings {
     
-    static let instance = FreeplaySettings()
+    static let instance = FreeplaySettings()    // singleton
     
-    var freeplayPlayerNumber: Int = 1
-    var freeplayMode: Int = 0    
+    var freeplayPlayerNumber: Int = 1   // default player number
+    var freeplayMode: Int = 0   // default mode (unlimited)
 }

@@ -11,7 +11,6 @@ import UIKit
 class RoundedShadowButton: UIButton {
 
     override func awakeFromNib() {
-        
         self.layer.cornerRadius = 10.0
         self.layer.shadowRadius = 5.0
     }

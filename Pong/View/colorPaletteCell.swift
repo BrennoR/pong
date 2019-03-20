@@ -12,5 +12,4 @@ class colorPaletteCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     
-    
 }

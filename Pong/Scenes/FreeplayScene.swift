@@ -18,7 +18,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     var scoreLbl = SKLabelNode()
     var enemyScoreLbl = SKLabelNode()
     
-    // pop-ups
+    // pop-up nodes
     var popUp = SKShapeNode()
     var popUpLbl = SKLabelNode()
     var popUpScoreLbl = SKLabelNode()
@@ -55,7 +55,8 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     var score = 0
     var enemyScore = 0
     
-    var velocity: Float = 45.0
+    // velocity variable
+    var velocity: Float = 63.0
     
     // names
     var playerName = "Your Score"
@@ -67,9 +68,9 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     var timer = 0
     
     override func didMove(to view: SKView) {
-        
         physicsWorld.contactDelegate = self
-        // nodes
+        
+        // child nodes
         ball = self.childNode(withName: "ball") as! SKSpriteNode
         mainPaddle = self.childNode(withName: "mainPaddle") as! SKSpriteNode
         enemyPaddle = self.childNode(withName: "enemyPaddle") as! SKSpriteNode
@@ -81,6 +82,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         popUpScoreLbl2 = popUp.childNode(withName: "popUpScoreLbl2") as! SKLabelNode
         pausePopUp = self.childNode(withName: "pausePopUp") as! SKShapeNode
         
+        // hide pop-ups
         popUp.isHidden = true
         pausePopUp.isHidden = true
         
@@ -98,7 +100,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         
         // serve ball
         var rand: Float = 1.0
-        if playerNumber == 2 {
+        if playerNumber == 2 {  // random direction if two-player game
             rand = sign(Float.random(in: -1 ... 1))
         }
         serve(sign: rand)
@@ -109,9 +111,8 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
             enemyHearts.append(self.childNode(withName: "enemyHeart\(i)") as! SKSpriteNode)
         }
         
-        // remove enemy label
+        // adjust names based on player number
         if playerNumber == 2 {
-//            enemyScoreLbl.removeFromParent()
             playerName = "Player 1"
             enemyName = "Player 2"
         }
@@ -145,6 +146,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody = border
     }
     
+    // touch functionality
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
@@ -160,15 +162,14 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        
         let w = mainPaddle.frame.width
         let rightOfPaddle = mainPaddle.position.x + w / 2
         let dist = rightOfPaddle - ball.position.x
         let rightOfEnemy = enemyPaddle.position.x + w / 2
         let distEnemy = rightOfEnemy - ball.position.x
         
-        let minAngle = CGFloat.pi*1/6
-        let maxAngle = CGFloat.pi*5/6
+        let minAngle = CGFloat.pi * 2/6
+        let maxAngle = CGFloat.pi * 4/6
         
         var v = sqrt(pow((ball.physicsBody?.velocity.dx)!, 2) + pow((ball.physicsBody?.velocity.dy)!, 2))
         
@@ -178,13 +179,10 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if contact.bodyA.collisionBitMask == 2 || contact.bodyB.collisionBitMask == 2 {
-            print(contact.bodyA.node?.name)
-            print(contact.bodyB.node?.name)
             AudioSettings.instance.playSound(soundIndex: 0)
             
             // contact with main paddle
             if contact.bodyA.node?.name == "mainPaddle" || contact.bodyB.node?.name == "mainPaddle" {
-                
                 if ball.position.y > mainPaddle.position.y + 15 {
                     let angle = minAngle + (maxAngle - minAngle) * (dist / w)
                     
@@ -192,7 +190,6 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
                     ball.physicsBody?.velocity.dy = CGFloat(v) * sin(angle)
                 }
             }
-            
             // contact with enemy paddle
             if contact.bodyA.node?.name == "enemyPaddle" || contact.bodyB.node?.name == "enemyPaddle" {
                 if ball.position.y < enemyPaddle.position.y - 15 {
@@ -204,6 +201,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        // contact with wall
         if contact.bodyA.collisionBitMask == 3 || contact.bodyB.collisionBitMask == 3 {
             AudioSettings.instance.playSound(soundIndex: 1)
         }
@@ -211,22 +209,20 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        if playerNumber == 1 {
+            enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 0.65))
+        }
         
+        // sets timer on start of match
         if startCount == true {
             self.startTime = Int(currentTime)
             startCount = false
         }
         
-        self.timer = Int(currentTime) - self.startTime
-        print(self.timer)
-        
-        if playerNumber == 1 {
-            enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 0.8))
-        }
-        
         if ball.position.y <= mainPaddle.position.y - 70 {
             AudioSettings.instance.playSound(soundIndex: 2)
             if mode == 1 {
+                // removes lives
                 lives -= 1
                 hearts[lives].removeFromParent()
             }
@@ -237,6 +233,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
             serve(sign: 1)
             
         } else if ball.position.y >= enemyPaddle.position.y + 70 {
+            // adds to score
             AudioSettings.instance.playSound(soundIndex: 2)
             score += 1
             scoreLbl.text = "\(score)"
@@ -253,6 +250,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
 
         }
         
+        // end-game pop-up labels
         if lives <  1 {
             gameOver()
             if playerNumber == 1 {
@@ -267,6 +265,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    // serving function
     func serve(sign: Float) {
         serving = true
         ball.position = CGPoint(x: 0, y: 0)
@@ -283,47 +282,52 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    // button setup
     func setupPopUpBtns() {
-        setupBtn(btn: retryBtn, size: CGSize(width: 60, height: 17), position: CGPoint(x: 0, y: -12), title: "Retry", name: "retryBtn")
+        setupBtn(btn: retryBtn, size: CGSize(width: 60, height: 17), position: CGPoint(x: 0, y: -12), title: "Retry", name: "retryBtn", yscale: 0.42)
         retryBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.retryBtnWasPressed))
         popUp.addChild(retryBtn)
         
-        setupBtn(btn: quitBtn, size: CGSize(width: 60, height: 17), position: CGPoint(x: 0, y: -35), title: "Quit", name: "quitBtn")
+        setupBtn(btn: quitBtn, size: CGSize(width: 60, height: 17), position: CGPoint(x: 0, y: -35), title: "Quit", name: "quitBtn", yscale: 0.42)
         quitBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.quitBtnWasPressed))
         popUp.addChild(quitBtn)
         
-        setupBtn(btn: continueBtn, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: 15), title: "Continue", name: "continueBtn")
+        setupBtn(btn: continueBtn, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: 15), title: "Continue", name: "continueBtn", yscale: 0.5)
         continueBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.continueBtnWasPressed))
         pausePopUp.addChild(continueBtn)
         
-        setupBtn(btn: restartBtn, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: -10), title: "Restart", name: "restartBtn")
+        setupBtn(btn: restartBtn, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: -10), title: "Restart", name: "restartBtn", yscale: 0.5)
         restartBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.retryBtnWasPressed))
         pausePopUp.addChild(restartBtn)
         
-        setupBtn(btn: quitBtn2, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: -35), title: "Quit", name: "quitBtn2")
+        setupBtn(btn: quitBtn2, size: CGSize(width: 60, height: 20), position: CGPoint(x: 0, y: -35), title: "Quit", name: "quitBtn2", yscale: 0.5)
         quitBtn2.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.quitBtnWasPressed))
         pausePopUp.addChild(quitBtn2)
     }
     
-    func setupBtn(btn: FTButtonNode, size: CGSize, position: CGPoint, title: NSString, name: String) {
+    // button setup helper function
+    func setupBtn(btn: FTButtonNode, size: CGSize, position: CGPoint, title: NSString, name: String, yscale: CGFloat) {
         btn.setButtonLabel(title: title, font: "Avenir", fontSize: 26, fontColor: UIColor.black)
         btn.label.xScale = 0.5
-        btn.label.yScale = 0.5
+        btn.label.yScale = yscale
         btn.size = size
         btn.position = position
         btn.zPosition = 4
         btn.name = name
     }
     
+    // interstitial ad pop-up
     func showInterstitial() {
         NotificationCenter.default.post(name: NSNotification.Name("showInterstitial"), object: nil)
     }
     
+    // pauses game and presents pause pop-up
     @objc func pauseBtnWasPressed() {
         physicsWorld.speed = 0
         pausePopUp.isHidden = false
     }
     
+    // presents game over pop-up
     @objc func gameOver() {
         physicsWorld.speed = 0
         popUpScoreLbl.text = "\(playerName): \(score)"
@@ -332,24 +336,24 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         pauseBtn.isEnabled = false
     }
     
+    // continues game from pause pop-up
     @objc func continueBtnWasPressed() {
         physicsWorld.speed = 1
         pausePopUp.isHidden = true
     }
     
+    // reloads scene
     @objc func retryBtnWasPressed() {
         if timer >= 90 {
             showInterstitial()
             freeplayHold = true
             pausePopUp.isHidden = true
         } else {
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            let gameScene = SKScene(fileNamed: "FreeplayScene")!
-            gameScene.scaleMode = .aspectFill
-            self.view?.presentScene(gameScene, transition: reveal)
+            revealScene(Filename: "FreeplayScene")
         }
     }
     
+    // returns to homeVC
     @objc func quitBtnWasPressed() {
         if timer >= 90 {
             showInterstitial()
@@ -358,6 +362,14 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         } else {
             NotificationCenter.default.post(name: NSNotification.Name("gameOver"), object: nil)
         }
+    }
+    
+    // scene loading function
+    @objc func revealScene(Filename: String) {
+        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+        let gameScene = SKScene(fileNamed: Filename)!
+        gameScene.scaleMode = .aspectFill
+        self.view?.presentScene(gameScene, transition: reveal)
     }
     
 }

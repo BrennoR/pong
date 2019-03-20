@@ -10,49 +10,28 @@ import UIKit
 import GoogleMobileAds
 import GameKit
 
-enum colorSettings: Int {
-    case paddle = 0
-    case enemyPaddle = 1
-    case ball = 2
-    case backgroundTheme = 3
-}
-
 class HomeVC: UIViewController, GADBannerViewDelegate, GKGameCenterControllerDelegate {
     
-    @IBOutlet weak var adBanner1: GADBannerView!
+    @IBOutlet weak var adBanner1: GADBannerView!    // banner ad
     
-    /* Variables */
     var gcEnabled = Bool() // Check if the user has Game Center enabled
     var gcDefaultLeaderBoard = String() // Check the default leaderboardID
     
-    var score = 0
-    
-    let LEADERBOARD_ID = "grp.levels"
+    let LEADERBOARD_ID = "grp.levels"   // game center leaderboard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         authenticateLocalPlayer()
         setupAds()
-
-//        // Google AdMob
-//        // Request
-//        let request = GADRequest()
-//        request.testDevices = [kGADSimulatorID]
-//
-//        // Set up ad
-//        adBanner1.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-//
-//        adBanner1.rootViewController = self
-//        adBanner1.delegate = self
-//
-//        adBanner1.load(request)
     }
     
+    // loads freeplayVC
     @IBAction func freeplayBtnWasPressed(_ sender: Any) {
         performSegue(withIdentifier: "freeplaySeg", sender: self)
     }
     
+    // presents gamecenter leaderboard
     @IBAction func leaderboardsBtnWasPressed(_ sender: Any) {
         let gcVC = GKGameCenterViewController()
         gcVC.gameCenterDelegate = self
@@ -61,9 +40,11 @@ class HomeVC: UIViewController, GADBannerViewDelegate, GKGameCenterControllerDel
         present(gcVC, animated: true, completion: nil)
     }
     
+    // unwind segue
     @IBAction func unwindToHome(segue: UIStoryboardSegue) {
     }
 
+    // authenticate gamecenter player
     func authenticateLocalPlayer() {
         let localPlayer: GKLocalPlayer = GKLocalPlayer.local
         
@@ -94,15 +75,15 @@ class HomeVC: UIViewController, GADBannerViewDelegate, GKGameCenterControllerDel
         gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     
+    // ad banner setup
     @objc func setupAds() {
         if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
             adBanner1?.removeFromSuperview()
         } else {
-            adBanner1.adUnitID = "ca-app-pub-6168015053740034/1040430807"
+            adBanner1.adUnitID = "ca-app-pub-3940256099942544/2934735716"
             adBanner1.rootViewController = self
-//            adBanner1.delegate = self
-//            let request = GADRequest()
-//            request.testDevices = [kGADSimulatorID]
+            let request = GADRequest()
+            request.testDevices = [kGADSimulatorID]
             adBanner1.load(GADRequest())
         }
     }

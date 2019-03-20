@@ -11,6 +11,7 @@ import UIKit
 
 extension UserDefaults {
     
+    // retrieves UIColor from UserDefaults
     func colorForKey(key: String) -> UIColor? {
         var color: UIColor?
         if let colorData = data(forKey: key) {
@@ -20,6 +21,7 @@ extension UserDefaults {
         return color
     }
     
+    // sets UIColor from UserDefaults
     func setColor(color: UIColor?, forKey key: String) {
         var colorData: NSData?
         if let color = color {

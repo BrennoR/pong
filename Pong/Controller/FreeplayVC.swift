@@ -11,13 +11,15 @@ import GoogleMobileAds
 
 class FreeplayVC: UIViewController, GADBannerViewDelegate {
     
+    // button outlets
     @IBOutlet weak var singlePlayerBtn: BorderButton!
     @IBOutlet weak var twoPlayerBtn: BorderButton!
     @IBOutlet weak var unlimitedBtn: BorderButton!
     @IBOutlet weak var threeLivesBtn: BorderButton!
-    @IBOutlet weak var adBanner4: GADBannerView!
     
-    var playerNumber = 1
+    @IBOutlet weak var adBanner4: GADBannerView!    // banner ad
+    
+    var playerNumber = 1    // number of players variable
     var modeState = 0   // used to either dismiss VC or go back to 1 vs. 2 player
     var livesMode = 0   // 0 = unlimited, 1 = three lives
     
@@ -26,43 +28,33 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
 
         showPlayers()
         setupAds()
-        
-//        // Google AdMob
-//        // Request
-//        let request = GADRequest()
-//        request.testDevices = [kGADSimulatorID]
-//
-//        // Set up ad
-//        adBanner4.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-//
-//        adBanner4.rootViewController = self
-//        adBanner4.delegate = self
-//
-//        adBanner4.load(request)
     }
     
+    // sets player number to one and presents modes
     @IBAction func singlePlayerBtnWasPressed(_ sender: Any) {
         showModes()
         playerNumber = 1
     }
     
+    // sets player number to two and presents modes
     @IBAction func twoPlayerBtnWasPressed(_ sender: Any) {
         showModes()
         playerNumber = 2
     }
     
+    // sets unlimited mode and presents FreeplayScene
     @IBAction func unlimitedBtnWasPressed(_ sender: Any) {
         livesMode = 0
         performSegue(withIdentifier: "fromFreeplaySeg", sender: self)
     }
     
+    // sets three lives mode and presents FreeplayScene
     @IBAction func threeLivesBtnWasPressed(_ sender: Any) {
         livesMode = 1
         performSegue(withIdentifier: "fromFreeplaySeg", sender: self)
     }
     
-    
-    
+    // returns to homeVC or resets buttons
     @IBAction func backBtnWasPressed(_ sender: Any) {
         if modeState == 0 {
             dismiss(animated: true, completion: nil)
@@ -71,7 +63,7 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
         }
     }
     
-    
+    // initial button setup
     func showPlayers() {
         singlePlayerBtn.isHidden = false
         twoPlayerBtn.isHidden = false
@@ -80,6 +72,7 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
         modeState = 0
     }
     
+    // mode button setup
     func showModes() {
         singlePlayerBtn.isHidden = true
         twoPlayerBtn.isHidden = true
@@ -88,6 +81,7 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
         modeState = 1
     }
     
+    // sets player number and lives mode in FreeplayScene
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let GameVC = segue.destination as? GameViewController {
             GameVC.freeplay = true
@@ -96,17 +90,17 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
         }
     }
     
+    // banner ad setup
     @objc func setupAds() {
         print(UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM))
         if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
             adBanner4?.removeFromSuperview()
         } else {
-            adBanner4.adUnitID = "ca-app-pub-6168015053740034/1040430807"
+            adBanner4.adUnitID = "ca-app-pub-3940256099942544/2934735716"
             adBanner4.rootViewController = self
-//            adBanner4.delegate = self
-//            let request = GADRequest()
-//            request.testDevices = [kGADSimulatorID]
-            adBanner4.load(GADRequest())
+            let request = GADRequest()
+            request.testDevices = [kGADSimulatorID]
+            adBanner4.load(request)
         }
     }
 

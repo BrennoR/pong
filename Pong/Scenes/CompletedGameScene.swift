@@ -11,9 +11,15 @@ import GameplayKit
 
 class CompletedGameScene: SKScene {
     
+    // main menu button
     var mainMenuBtn = FTButtonNode(normalTexture: SKTexture.init(imageNamed: "btn-texture"), selectedTexture: SKTexture.init(imageNamed: "btn-texture"), disabledTexture: SKTexture.init(imageNamed: "btn-texture"))
     
     override func didMove(to view: SKView) {
+        setupMainMenuBtn()
+    }
+    
+    // main menu button setup
+    func setupMainMenuBtn() {
         mainMenuBtn.size = CGSize(width: 420, height: 120)
         mainMenuBtn.position = CGPoint(x: 0, y: -(self.frame.height / 2) + 180)
         print(-(self.frame.height / 2) + 200)
@@ -24,8 +30,10 @@ class CompletedGameScene: SKScene {
         self.addChild(mainMenuBtn)
     }
     
+    // returns to homeVC
     @objc func mainMenuBtnWasPressed() {
         NotificationCenter.default.post(name: NSNotification.Name("gameOver"), object: nil)
     }
+    
     
 }

@@ -13,14 +13,15 @@ import StoreKit
 
 class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     
-    static let instance = PurchaseManager()
+    static let instance = PurchaseManager() // singleton
     
-    let IAP_PREMIUM = "com.brennoribeiro.Pong.premium"
+    let IAP_PREMIUM = "com.brennoribeiro.Pong.premium"  // premium IAP ID
     
     var productsRequest: SKProductsRequest!
     var products = [SKProduct]()
-    var transactionComplete: CompletionHandler?
+    var transactionComplete: CompletionHandler? // transaction completion handler
     
+    // fetches available IAP products
     func fetchProducts() {
         let productIds = NSSet(object: IAP_PREMIUM) as! Set<String>
         productsRequest = SKProductsRequest(productIdentifiers: productIds)
@@ -28,6 +29,7 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
         productsRequest.start()
     }
     
+    // premium purchase function
     func purchasePremium(onComplete: @escaping CompletionHandler) {
         if SKPaymentQueue.canMakePayments() && products.count > 0 {
             print("YES")
@@ -42,6 +44,7 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
         }
     }
     
+    // restore purchase function
     func restorePurchases(onComplete: @escaping CompletionHandler) {
         if SKPaymentQueue.canMakePayments() {
             transactionComplete = onComplete
@@ -53,9 +56,8 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
         
     }
     
-    
+    // outputs products
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        
         if response.products.count > 0 {
             print(response.products.debugDescription)
             products = response.products
@@ -63,6 +65,7 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
         
     }
     
+    // paymentQueue based on whether IAP has been purchased or not
     func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
         
         if UserDefaults.standard.bool(forKey: IAP_PREMIUM) == false {
@@ -74,27 +77,30 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
         return false
     }
     
+    // transactions
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             switch transaction.transactionState {
-            case .purchased:
+            case .purchased:    // purchase successful
                 SKPaymentQueue.default().finishTransaction(transaction)
                 if transaction.payment.productIdentifier == IAP_PREMIUM {
+                    // set UserDefaults IAP purchased key to true
                     UserDefaults.standard.set(true, forKey: IAP_PREMIUM)
                     transactionComplete?(true)
                 }
                 break
-            case .failed:
+            case .failed:   // failed transaction
                 SKPaymentQueue.default().finishTransaction(transaction)
                 transactionComplete?(false)
                 break
-            case .restored:
+            case .restored: // restore purchases successful
                 SKPaymentQueue.default().finishTransaction(transaction)
                 if transaction.payment.productIdentifier == IAP_PREMIUM {
+                    // set UserDefaults IAP purchased key to true
                     UserDefaults.standard.set(true, forKey: IAP_PREMIUM)
                 }
                 transactionComplete?(true)
-            default:
+            default:    // default: uncomplete transaction
                 transactionComplete?(false)
                 break
             }

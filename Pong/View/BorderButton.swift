@@ -11,8 +11,6 @@ import UIKit
 class BorderButton: UIButton {
 
     override func awakeFromNib() {
-//        self.layer.borderWidth = 3.0
-//        self.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.layer.cornerRadius = self.frame.height * 0.24
         self.clipsToBounds = true
     }
