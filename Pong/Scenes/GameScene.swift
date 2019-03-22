@@ -279,6 +279,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // presents game over pop-up
     func gameOver() {
+        pauseBtn.isEnabled = false
         lvlCompletePopUp.removeFromParent()
         gameOverPopUp.isHidden = false
         self.isPaused = true
@@ -338,6 +339,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // reloads scene with the settings of the next level
     @objc func nextLvlBtnWasPressed() {
+        retryCount = 0
+        
         if currentLevel < 12 {
             LevelSettings.instance.currentLevel = currentLevel + 1
             LevelSettings.instance.current_setting = LevelSettings.instance.settings[currentLevel + 1]!
@@ -352,6 +355,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // reloads scene
     @objc func retryBtnWasPressed() {
+        retryCount += 1
+        if retryCount >= 3 {    // presents interstitial ad if restart button is pressed 3 times
+            showInterstitial()
+            retryCount = 0
+        }
+        
         revealScene(Filename: "GameScene")
     }
     

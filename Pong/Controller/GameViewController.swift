@@ -15,6 +15,9 @@ import GoogleMobileAds
 var freeplayHold = false    
 var gameOverHold = false
 
+// retry variable for interstitial ad
+var retryCount = 0
+
 class GameViewController: UIViewController, GADInterstitialDelegate {
     
     var freeplay = false    // freeplay variable
