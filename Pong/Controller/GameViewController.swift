@@ -41,7 +41,10 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: file) {
                 // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
+//                scene.scaleMode = .aspectFill
+//                scene.scaleMode = .fill
+                scene.scaleMode = .aspectFit
+//                scene.scaleMode = SKSceneScaleMode.resizeFill
                 // Present the scene
                 view.presentScene(scene)
             }
