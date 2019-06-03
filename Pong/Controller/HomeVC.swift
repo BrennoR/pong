@@ -35,7 +35,8 @@ class HomeVC: UIViewController, GADBannerViewDelegate, GKGameCenterControllerDel
     @IBAction func leaderboardsBtnWasPressed(_ sender: Any) {
         let gcVC = GKGameCenterViewController()
         gcVC.gameCenterDelegate = self
-        gcVC.viewState = .leaderboards
+//        gcVC.viewState = .leaderboards
+        gcVC.viewState = .default
         gcVC.leaderboardIdentifier = LEADERBOARD_ID
         present(gcVC, animated: true, completion: nil)
     }
