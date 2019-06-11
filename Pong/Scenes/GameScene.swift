@@ -93,7 +93,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // pause button
         pauseBtn.size = CGSize(width: 75, height: 75)
         pauseBtn.position = CGPoint(x: -15, y: (self.frame.height / 2) - 50)
-        print(-(self.frame.height / 2) + 200)
         pauseBtn.zPosition = 4
         pauseBtn.name = "pauseBtn"
         pauseBtn.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: #selector(FreeplayScene.pauseBtnWasPressed))
