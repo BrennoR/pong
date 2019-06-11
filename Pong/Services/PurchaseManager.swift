@@ -31,6 +31,7 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
     
     // premium purchase function
     func purchasePremium(onComplete: @escaping CompletionHandler) {
+        print(products.count)
         if SKPaymentQueue.canMakePayments() && products.count > 0 {
             print("YES")
             transactionComplete = onComplete

@@ -41,10 +41,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: file) {
                 // Set the scale mode to scale to fit the window
-//                scene.scaleMode = .aspectFill
-//                scene.scaleMode = .fill
                 scene.scaleMode = .aspectFit
-//                scene.scaleMode = SKSceneScaleMode.resizeFill
                 // Present the scene
                 view.presentScene(scene)
             }
@@ -98,7 +95,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
             if let view = self.view as! SKView? {
                 let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
                 let gameScene = SKScene(fileNamed: "FreeplayScene")!
-                gameScene.scaleMode = .aspectFill
+                gameScene.scaleMode = .aspectFit
                 view.presentScene(gameScene, transition: reveal)
             }
         }

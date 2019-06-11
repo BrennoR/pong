@@ -368,7 +368,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func revealScene(Filename: String) {
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
         let gameScene = SKScene(fileNamed: Filename)!
-        gameScene.scaleMode = .aspectFill
+        gameScene.scaleMode = .aspectFit
         self.view?.presentScene(gameScene, transition: reveal)
     }
     
