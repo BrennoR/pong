@@ -134,7 +134,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
         mainPaddle.color = UserDefaults.standard.colorForKey(key: "paddleColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         enemyPaddle.color = UserDefaults.standard.colorForKey(key: "enemyPaddleColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         ball.color = UserDefaults.standard.colorForKey(key: "ballColor") ?? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.backgroundColor = UserDefaults.standard.colorForKey(key: "backgroundTheme") ?? #colorLiteral(red: 0.1490196139, green: 0.1490196139, blue: 0.1490196139, alpha: 1)
+        self.backgroundColor = UserDefaults.standard.colorForKey(key: "backgroundTheme") ?? #colorLiteral(red: 0.07843137255, green: 0.5568627451, blue: 1, alpha: 1)
         
         // physics
         let border = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -209,7 +209,7 @@ class FreeplayScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         if playerNumber == 1 {
-            enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 0.65))
+            enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 0.5))
         }
         
         // sets timer on start of match

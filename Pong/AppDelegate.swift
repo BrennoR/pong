@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         GADMobileAds.sharedInstance().start(completionHandler: nil)     // initialize Google Admob
         AudioSettings.instance.setupAudio()     // initialize audio
+        PurchaseManager.instance.fetchProducts()    // fetch in-app purchases
         
         return true
     }

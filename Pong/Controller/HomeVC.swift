@@ -23,6 +23,9 @@ class HomeVC: UIViewController, GADBannerViewDelegate, GKGameCenterControllerDel
         super.viewDidLoad()
         
         authenticateLocalPlayer()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         setupAds()
     }
     
@@ -81,7 +84,7 @@ class HomeVC: UIViewController, GADBannerViewDelegate, GKGameCenterControllerDel
         if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
             adBanner1?.removeFromSuperview()
         } else {
-            adBanner1.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            adBanner1.adUnitID = "ca-app-pub-6168015053740034/2453609429"
             adBanner1.rootViewController = self
             let request = GADRequest()
             request.testDevices = [kGADSimulatorID]

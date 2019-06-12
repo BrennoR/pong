@@ -86,7 +86,7 @@ class SettingsVC: UIViewController, GADBannerViewDelegate {
         if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
             adBanner3?.removeFromSuperview()
         } else {
-            adBanner3.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            adBanner3.adUnitID = "ca-app-pub-6168015053740034/2453609429"
             adBanner3.rootViewController = self
             let request = GADRequest()
             request.testDevices = [kGADSimulatorID]

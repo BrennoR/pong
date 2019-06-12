@@ -81,7 +81,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
     
     // loads interstitial
     func createAndLoadInterstitial() -> GADInterstitial {
-        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-6168015053740034/5633898384")
         interstitial.delegate = self
         interstitial.load(GADRequest())
         return interstitial
@@ -110,7 +110,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
     
     // presents interstitial ad
     @objc func showInterstitial() {
-        if interstitial.isReady {
+        if interstitial.isReady && !UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM){
             interstitial.present(fromRootViewController: self)
         } else {
             print("Ad wasn't ready")

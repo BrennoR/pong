@@ -23,10 +23,10 @@ class CareerVC: UIViewController, GADBannerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         enableBtns()
-        setupAds()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
+        setupAds()
     }
     
     
@@ -56,7 +56,7 @@ class CareerVC: UIViewController, GADBannerViewDelegate {
         if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
             adBanner2?.removeFromSuperview()
         } else {
-            adBanner2.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            adBanner2.adUnitID = "ca-app-pub-6168015053740034/2453609429"
             adBanner2.rootViewController = self
             let request = GADRequest()
             request.testDevices = [kGADSimulatorID]

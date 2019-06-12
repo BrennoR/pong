@@ -27,6 +27,9 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
         super.viewDidLoad()
 
         showPlayers()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         setupAds()
     }
     
@@ -96,7 +99,7 @@ class FreeplayVC: UIViewController, GADBannerViewDelegate {
         if UserDefaults.standard.bool(forKey: PurchaseManager.instance.IAP_PREMIUM) {
             adBanner4?.removeFromSuperview()
         } else {
-            adBanner4.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            adBanner4.adUnitID = "ca-app-pub-6168015053740034/2453609429"
             adBanner4.rootViewController = self
             let request = GADRequest()
             request.testDevices = [kGADSimulatorID]
