@@ -14,6 +14,7 @@ class PremiumVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        PurchaseManager.instance.fetchProducts()
         premiumPopup.layer.cornerRadius = premiumPopup.frame.height * 0.08  // round pop-up corners
     }
     
@@ -28,7 +29,7 @@ class PremiumVC: UIViewController {
             if success {
                 NotificationCenter.default.post(name: Notification.Name("ADS"), object: nil)
             } else {
-                
+                self.showTransactionErrorAlert()
             }
         }
     }
@@ -39,9 +40,18 @@ class PremiumVC: UIViewController {
             if success {
                 NotificationCenter.default.post(name: Notification.Name("ADS"), object: nil)
             } else {
-                
+                self.showTransactionErrorAlert()
             }
         }
+    }
+    
+    // presents alert if transactions cannot be completed
+    func showTransactionErrorAlert() {
+        let errorAlert = UIAlertController(title: "Error", message: "There was an error with your transaction, please go back and try again.", preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "Go Back", style: .default, handler: { (UIAlertAction) in
+            errorAlert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(errorAlert, animated: true, completion: nil)
     }
 
 }
