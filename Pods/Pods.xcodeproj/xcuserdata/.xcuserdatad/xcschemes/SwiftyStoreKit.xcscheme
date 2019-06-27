@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DDE7270D1C3519C08AB010C64E4077D3"
-               BlueprintName = "Pods-Pong"
+               BlueprintIdentifier = "937C3D95BD9F600511C274D40345308B"
+               BlueprintName = "SwiftyStoreKit"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Pods-Pong.framework">
+               BuildableName = "SwiftyStoreKit.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

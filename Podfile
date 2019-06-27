@@ -7,5 +7,6 @@ target 'Pong' do
 
   # Pods for Pong
   pod 'Google-Mobile-Ads-SDK'
+  pod 'SwiftyStoreKit'
 
 end

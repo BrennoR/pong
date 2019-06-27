@@ -14,7 +14,6 @@ class PremiumVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        PurchaseManager.instance.fetchProducts()
         premiumPopup.layer.cornerRadius = premiumPopup.frame.height * 0.08  // round pop-up corners
     }
     
@@ -25,24 +24,41 @@ class PremiumVC: UIViewController {
     
     // initalizes buy premium process in purchase manager
     @IBAction func buyNowBtnWasPressed(_ sender: Any) {
-        PurchaseManager.instance.purchasePremium { success in
-            if success {
-                NotificationCenter.default.post(name: Notification.Name("ADS"), object: nil)
-            } else {
-                self.showTransactionErrorAlert()
-            }
-        }
+//        PurchaseManager.instance.purchasePremium { success in
+//            if success {
+//                NotificationCenter.default.post(name: Notification.Name("ADS"), object: nil)
+//            } else {
+//                self.showTransactionErrorAlert()
+//            }
+//        }
+        PurchaseManager2.instance.purchase(purchase: RegisteredPurchase.Premium)
+//        {
+//            success in
+//            if success {
+//                NotificationCenter.default.post(name: Notification.Name("ADS"), object: nil)
+//            } else {
+//                self.showTransactionErrorAlert()
+//            }
+//        }
     }
     
     // initializes purchase restoration process in purchase manager
     @IBAction func restorePurchaseBtnWasPressed(_ sender: Any) {
-        PurchaseManager.instance.restorePurchases { success in
-            if success {
-                NotificationCenter.default.post(name: Notification.Name("ADS"), object: nil)
-            } else {
-                self.showTransactionErrorAlert()
-            }
-        }
+//        PurchaseManager.instance.restorePurchases { success in
+//            if success {
+//                NotificationCenter.default.post(name: Notification.Name("ADS"), object: nil)
+//            } else {
+//                self.showTransactionErrorAlert()
+//            }
+//        }
+        PurchaseManager2.instance.restorePurchases()
+//            { success in
+//            if success {
+//                NotificationCenter.default.post(name: Notification.Name("ADS"), object: nil)
+//            } else {
+//                self.showTransactionErrorAlert()
+//            }
+//        }
     }
     
     // presents alert if transactions cannot be completed

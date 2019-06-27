@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMobileAds
 import AVFoundation
+import SwiftyStoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,10 +18,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+//        PurchaseManager.instance.fetchProducts()
         GADMobileAds.sharedInstance().start(completionHandler: nil)     // initialize Google Admob
         AudioSettings.instance.setupAudio()     // initialize audio
-        
+        setupIAP()
         return true
+    }
+    
+    func setupIAP() {
+        
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    let downloads = purchase.transaction.downloads
+                    if !downloads.isEmpty {
+                        SwiftyStoreKit.start(downloads)
+                    } else if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    print("\(purchase.transaction.transactionState.debugDescription): \(purchase.productId)")
+                case .failed, .purchasing, .deferred:
+                break // do nothing
+                @unknown default:
+                    break // do nothing
+                }
+            }
+        }
+        
+        SwiftyStoreKit.updatedDownloadsHandler = { downloads in
+            
+            // contentURL is not nil if downloadState == .finished
+            let contentURLs = downloads.compactMap { $0.contentURL }
+            if contentURLs.count == downloads.count {
+                print("Saving: \(contentURLs)")
+                SwiftyStoreKit.finishTransaction(downloads[0].transaction)
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -28,9 +28,11 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - SwiftyStoreKit (0.14.2)
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK
+  - SwiftyStoreKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -38,13 +40,15 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUtilities
     - nanopb
+    - SwiftyStoreKit
 
 SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: c7bec408202526ec4e9ccd025c00f9f30e9f8807
   GoogleAppMeasurement: 6cf307834da065863f9faf4c0de0a936d81dd832
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  SwiftyStoreKit: cc399645796b094022fb650c148a0aed25995873
 
-PODFILE CHECKSUM: 1063dbec1343facdb0acef4607da07a5a22d6dab
+PODFILE CHECKSUM: 1a1c0258b81dc6692deb67f72e48681be9c188db
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2

@@ -33,6 +33,7 @@
 		B44E5F8621CF67E600F57EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44E5F8421CF67E600F57EF1 /* LaunchScreen.storyboard */; };
 		B452E7242235EB620032B6BA /* FTButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452E7232235EB620032B6BA /* FTButtonNode.swift */; };
 		B49E299421FD18A300467208 /* CareerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49E299321FD18A300467208 /* CareerVC.swift */; };
+		B4C8022622C4210200BBA548 /* PurchaseManager2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C8022522C4210200BBA548 /* PurchaseManager2.swift */; };
 		B4D3A25D2217E82100554651 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D3A25C2217E82100554651 /* BorderButton.swift */; };
 		B4E5D48E2218AC6A006BF1AE /* RoundedShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */; };
 		B4E5D4992218D278006BF1AE /* ColorPaletteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */; };
@@ -73,6 +74,7 @@
 		B44E5F8721CF67E600F57EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B452E7232235EB620032B6BA /* FTButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTButtonNode.swift; sourceTree = "<group>"; };
 		B49E299321FD18A300467208 /* CareerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerVC.swift; sourceTree = "<group>"; };
+		B4C8022522C4210200BBA548 /* PurchaseManager2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager2.swift; sourceTree = "<group>"; };
 		B4D3A25C2217E82100554651 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		B4E5D48D2218AC6A006BF1AE /* RoundedShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowButton.swift; sourceTree = "<group>"; };
 		B4E5D4982218D278006BF1AE /* ColorPaletteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteVC.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				B414FEE7223F54ED00447290 /* PurchaseManager.swift */,
+				B4C8022522C4210200BBA548 /* PurchaseManager2.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -308,18 +311,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pong/Pods-Pong-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -354,6 +355,7 @@
 			files = (
 				B4E5D49D2218D4D0006BF1AE /* SettingsVC.swift in Sources */,
 				B414FEE8223F54ED00447290 /* PurchaseManager.swift in Sources */,
+				B4C8022622C4210200BBA548 /* PurchaseManager2.swift in Sources */,
 				B44E5F7C21CF67E500F57EF1 /* GameScene.swift in Sources */,
 				B452E7242235EB620032B6BA /* FTButtonNode.swift in Sources */,
 				B49E299421FD18A300467208 /* CareerVC.swift in Sources */,

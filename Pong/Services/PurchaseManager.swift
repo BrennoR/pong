@@ -29,6 +29,8 @@ class PurchaseManager: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
         productsRequest.start()
     }
     
+    // Receipt Validation
+    
     // premium purchase function
     func purchasePremium(onComplete: @escaping CompletionHandler) {
         if SKPaymentQueue.canMakePayments() && products.count > 0 {
